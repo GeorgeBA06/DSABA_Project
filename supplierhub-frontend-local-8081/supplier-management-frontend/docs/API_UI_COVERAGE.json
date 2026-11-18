@@ -1,0 +1,687 @@
+{
+  "version": "0.5.0",
+  "count": 97,
+  "verifiedAt": "31 октября 2026",
+  "assessment": "static UI reachability and source markers; not HTTP E2E",
+  "operations": [
+    {
+      "id": "DELETE /api/v1/admin/users/{id}/roles/{role}",
+      "method": "DELETE",
+      "path": "/api/v1/admin/users/{id}/roles/{role}",
+      "component": "pages/Details.tsx",
+      "marker": "`/admin/users/${id}/roles/${item.role}`"
+    },
+    {
+      "id": "GET /api/v1/admin/audit",
+      "method": "GET",
+      "path": "/api/v1/admin/audit",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/admin/audit'"
+    },
+    {
+      "id": "GET /api/v1/admin/dashboard",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard",
+      "component": "pages/Dashboard.tsx",
+      "marker": "'/admin/dashboard'"
+    },
+    {
+      "id": "GET /api/v1/admin/users",
+      "method": "GET",
+      "path": "/api/v1/admin/users",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/admin/users'"
+    },
+    {
+      "id": "GET /api/v1/admin/users/{id}",
+      "method": "GET",
+      "path": "/api/v1/admin/users/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/admin/users/{id}/roles",
+      "method": "GET",
+      "path": "/api/v1/admin/users/{id}/roles",
+      "component": "pages/Details.tsx",
+      "marker": "`/admin/users/${id}/roles`"
+    },
+    {
+      "id": "GET /api/v1/auth/me",
+      "method": "GET",
+      "path": "/api/v1/auth/me",
+      "component": "core/auth.tsx",
+      "marker": "'/auth/me'"
+    },
+    {
+      "id": "GET /api/v1/catalog/categories",
+      "method": "GET",
+      "path": "/api/v1/catalog/categories",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/catalog/categories'"
+    },
+    {
+      "id": "GET /api/v1/catalog/products",
+      "method": "GET",
+      "path": "/api/v1/catalog/products",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/catalog/products'"
+    },
+    {
+      "id": "GET /api/v1/catalog/products/{id}",
+      "method": "GET",
+      "path": "/api/v1/catalog/products/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/catalog/units",
+      "method": "GET",
+      "path": "/api/v1/catalog/units",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/catalog/units'"
+    },
+    {
+      "id": "GET /api/v1/contracts",
+      "method": "GET",
+      "path": "/api/v1/contracts",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/contracts'"
+    },
+    {
+      "id": "GET /api/v1/contracts/{id}",
+      "method": "GET",
+      "path": "/api/v1/contracts/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/contracts/{id}/versions",
+      "method": "GET",
+      "path": "/api/v1/contracts/{id}/versions",
+      "component": "pages/Details.tsx",
+      "marker": "`/contracts/${id}/versions`"
+    },
+    {
+      "id": "GET /api/v1/dashboard",
+      "method": "GET",
+      "path": "/api/v1/dashboard",
+      "component": "pages/Dashboard.tsx",
+      "marker": "'/dashboard'"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/acceptances",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/acceptances",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/fulfillment/acceptances'"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/acceptances/{id}",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/acceptances/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/acceptances/{id}/lines",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/acceptances/{id}/lines",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/acceptances/${id}/lines`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/corrections",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/corrections",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/fulfillment/corrections'"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/corrections/{id}",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/corrections/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/deliveries",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/deliveries",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/fulfillment/deliveries'"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/deliveries/{id}",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/deliveries/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/deliveries/{id}/lines",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/deliveries/{id}/lines",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/deliveries/${id}/lines`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/returns",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/returns",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/fulfillment/returns'"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/returns/{id}",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/returns/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/fulfillment/returns/{id}/lines",
+      "method": "GET",
+      "path": "/api/v1/fulfillment/returns/{id}/lines",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/returns/${id}/lines`"
+    },
+    {
+      "id": "GET /api/v1/orders",
+      "method": "GET",
+      "path": "/api/v1/orders",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/orders'"
+    },
+    {
+      "id": "GET /api/v1/orders/versions/{id}/lines",
+      "method": "GET",
+      "path": "/api/v1/orders/versions/{id}/lines",
+      "component": "pages/Workflows.tsx",
+      "marker": "`/orders/versions/${approved.id}/lines`"
+    },
+    {
+      "id": "GET /api/v1/orders/{id}",
+      "method": "GET",
+      "path": "/api/v1/orders/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/orders/{id}/versions",
+      "method": "GET",
+      "path": "/api/v1/orders/{id}/versions",
+      "component": "pages/Details.tsx",
+      "marker": "`/orders/${id}/versions`"
+    },
+    {
+      "id": "GET /api/v1/ratings",
+      "method": "GET",
+      "path": "/api/v1/ratings",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/ratings'"
+    },
+    {
+      "id": "GET /api/v1/ratings/expert-assessments",
+      "method": "GET",
+      "path": "/api/v1/ratings/expert-assessments",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/ratings/expert-assessments'"
+    },
+    {
+      "id": "GET /api/v1/ratings/expert-assessments/{id}",
+      "method": "GET",
+      "path": "/api/v1/ratings/expert-assessments/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/ratings/supplier/{id}",
+      "method": "GET",
+      "path": "/api/v1/ratings/supplier/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`/ratings/supplier/${id}`"
+    },
+    {
+      "id": "GET /api/v1/ratings/{id}",
+      "method": "GET",
+      "path": "/api/v1/ratings/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/ratings/{id}/inputs",
+      "method": "GET",
+      "path": "/api/v1/ratings/{id}/inputs",
+      "component": "pages/Details.tsx",
+      "marker": "`/ratings/${id}/inputs`"
+    },
+    {
+      "id": "GET /api/v1/relationships/claims",
+      "method": "GET",
+      "path": "/api/v1/relationships/claims",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/relationships/claims'"
+    },
+    {
+      "id": "GET /api/v1/relationships/claims/{id}",
+      "method": "GET",
+      "path": "/api/v1/relationships/claims/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/relationships/interactions",
+      "method": "GET",
+      "path": "/api/v1/relationships/interactions",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/relationships/interactions'"
+    },
+    {
+      "id": "GET /api/v1/reports/suppliers",
+      "method": "GET",
+      "path": "/api/v1/reports/suppliers",
+      "component": "pages/Reports.tsx",
+      "marker": "'/reports/suppliers'"
+    },
+    {
+      "id": "GET /api/v1/reports/suppliers.xlsx",
+      "method": "GET",
+      "path": "/api/v1/reports/suppliers.xlsx",
+      "component": "pages/Reports.tsx",
+      "marker": "'/reports/suppliers.xlsx'"
+    },
+    {
+      "id": "GET /api/v1/suppliers",
+      "method": "GET",
+      "path": "/api/v1/suppliers",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/suppliers'"
+    },
+    {
+      "id": "GET /api/v1/suppliers/status-requests",
+      "method": "GET",
+      "path": "/api/v1/suppliers/status-requests",
+      "component": "core/resources.ts",
+      "marker": "endpoint:'/suppliers/status-requests'"
+    },
+    {
+      "id": "GET /api/v1/suppliers/{id}",
+      "method": "GET",
+      "path": "/api/v1/suppliers/{id}",
+      "component": "pages/Details.tsx",
+      "marker": "`${resource.endpoint}/${id}`"
+    },
+    {
+      "id": "GET /api/v1/suppliers/{id}/products",
+      "method": "GET",
+      "path": "/api/v1/suppliers/{id}/products",
+      "component": "pages/Details.tsx",
+      "marker": "`/suppliers/${id}/products`"
+    },
+    {
+      "id": "PATCH /api/v1/catalog/products/{id}/active",
+      "method": "PATCH",
+      "path": "/api/v1/catalog/products/{id}/active",
+      "component": "pages/Details.tsx",
+      "marker": "`/catalog/products/${id}/active`"
+    },
+    {
+      "id": "POST /api/v1/admin/users",
+      "method": "POST",
+      "path": "/api/v1/admin/users",
+      "component": "pages/Forms.tsx",
+      "marker": "'/admin/users'"
+    },
+    {
+      "id": "POST /api/v1/admin/users/{id}/block",
+      "method": "POST",
+      "path": "/api/v1/admin/users/{id}/block",
+      "component": "pages/Details.tsx",
+      "marker": "'block':'unblock'"
+    },
+    {
+      "id": "POST /api/v1/admin/users/{id}/reset-password",
+      "method": "POST",
+      "path": "/api/v1/admin/users/{id}/reset-password",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'user-reset':"
+    },
+    {
+      "id": "POST /api/v1/admin/users/{id}/roles",
+      "method": "POST",
+      "path": "/api/v1/admin/users/{id}/roles",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'user-add-role':"
+    },
+    {
+      "id": "POST /api/v1/admin/users/{id}/unblock",
+      "method": "POST",
+      "path": "/api/v1/admin/users/{id}/unblock",
+      "component": "pages/Details.tsx",
+      "marker": "'block':'unblock'"
+    },
+    {
+      "id": "POST /api/v1/auth/login",
+      "method": "POST",
+      "path": "/api/v1/auth/login",
+      "component": "core/api.ts",
+      "marker": "'/auth/login'"
+    },
+    {
+      "id": "POST /api/v1/auth/logout",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "component": "core/api.ts",
+      "marker": "'/auth/logout'"
+    },
+    {
+      "id": "POST /api/v1/auth/password",
+      "method": "POST",
+      "path": "/api/v1/auth/password",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'password-change':"
+    },
+    {
+      "id": "POST /api/v1/auth/refresh",
+      "method": "POST",
+      "path": "/api/v1/auth/refresh",
+      "component": "core/api.ts",
+      "marker": "'/auth/refresh'"
+    },
+    {
+      "id": "POST /api/v1/catalog/categories",
+      "method": "POST",
+      "path": "/api/v1/catalog/categories",
+      "component": "pages/Forms.tsx",
+      "marker": "`/catalog/${id}`"
+    },
+    {
+      "id": "POST /api/v1/catalog/products",
+      "method": "POST",
+      "path": "/api/v1/catalog/products",
+      "component": "pages/Forms.tsx",
+      "marker": "'/catalog/products'"
+    },
+    {
+      "id": "POST /api/v1/catalog/units",
+      "method": "POST",
+      "path": "/api/v1/catalog/units",
+      "component": "pages/Forms.tsx",
+      "marker": "`/catalog/${id}`"
+    },
+    {
+      "id": "POST /api/v1/contracts",
+      "method": "POST",
+      "path": "/api/v1/contracts",
+      "component": "pages/Forms.tsx",
+      "marker": "'/contracts'"
+    },
+    {
+      "id": "POST /api/v1/contracts/versions/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/contracts/versions/{id}/decision",
+      "component": "pages/Details.tsx",
+      "marker": "`/contracts/versions/${item.id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/contracts/versions/{id}/submit",
+      "method": "POST",
+      "path": "/api/v1/contracts/versions/{id}/submit",
+      "component": "pages/Details.tsx",
+      "marker": "`/contracts/versions/${item.id}/submit`"
+    },
+    {
+      "id": "POST /api/v1/contracts/{id}/terminate",
+      "method": "POST",
+      "path": "/api/v1/contracts/{id}/terminate",
+      "component": "pages/Details.tsx",
+      "marker": "`/contracts/${id}/terminate`"
+    },
+    {
+      "id": "POST /api/v1/contracts/{id}/versions",
+      "method": "POST",
+      "path": "/api/v1/contracts/{id}/versions",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'contract-revision':"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/acceptances/{id}/confirm",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/acceptances/{id}/confirm",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/acceptances/${id}/confirm`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/acceptances/{id}/correction",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/acceptances/{id}/correction",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'acceptance-correction':"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/corrections/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/corrections/{id}/decision",
+      "component": "pages/Details.tsx",
+      "marker": "`${prefix}/${id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/corrections/{id}/submit",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/corrections/{id}/submit",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/corrections/${id}/submit`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/deliveries/{id}/acceptances",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/deliveries/{id}/acceptances",
+      "component": "pages/Workflows.tsx",
+      "marker": "`/fulfillment/deliveries/${id}/acceptances`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/deliveries/{id}/confirm",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/deliveries/{id}/confirm",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/deliveries/${id}/confirm`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/deliveries/{id}/correction",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/deliveries/{id}/correction",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'delivery-correction':"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/orders/{id}/returns",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/orders/{id}/returns",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'return-create':"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/orders/{orderId}/deliveries",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/orders/{orderId}/deliveries",
+      "component": "pages/Workflows.tsx",
+      "marker": "`/fulfillment/orders/${id}/deliveries`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/returns/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/returns/{id}/decision",
+      "component": "pages/Details.tsx",
+      "marker": "`${prefix}/${id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/fulfillment/returns/{id}/submit",
+      "method": "POST",
+      "path": "/api/v1/fulfillment/returns/{id}/submit",
+      "component": "pages/Details.tsx",
+      "marker": "`/fulfillment/returns/${id}/submit`"
+    },
+    {
+      "id": "POST /api/v1/orders",
+      "method": "POST",
+      "path": "/api/v1/orders",
+      "component": "pages/Forms.tsx",
+      "marker": "'/orders'"
+    },
+    {
+      "id": "POST /api/v1/orders/versions/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/orders/versions/{id}/decision",
+      "component": "pages/Details.tsx",
+      "marker": "`/orders/versions/${item.id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/orders/versions/{id}/submit",
+      "method": "POST",
+      "path": "/api/v1/orders/versions/{id}/submit",
+      "component": "pages/Details.tsx",
+      "marker": "`/orders/versions/${item.id}/submit`"
+    },
+    {
+      "id": "POST /api/v1/orders/{id}/close",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/close",
+      "component": "pages/Details.tsx",
+      "marker": "`/orders/${id}/close`"
+    },
+    {
+      "id": "POST /api/v1/orders/{id}/increase",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/increase",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'order-increase':"
+    },
+    {
+      "id": "POST /api/v1/orders/{id}/reopen",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/reopen",
+      "component": "pages/Details.tsx",
+      "marker": "`/orders/${id}/reopen`"
+    },
+    {
+      "id": "POST /api/v1/orders/{id}/reschedule",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/reschedule",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'order-reschedule':"
+    },
+    {
+      "id": "POST /api/v1/orders/{id}/revise-rejected",
+      "method": "POST",
+      "path": "/api/v1/orders/{id}/revise-rejected",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'order-revise':"
+    },
+    {
+      "id": "POST /api/v1/ratings/calculate",
+      "method": "POST",
+      "path": "/api/v1/ratings/calculate",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'rating-calculate':"
+    },
+    {
+      "id": "POST /api/v1/ratings/expert-assessments",
+      "method": "POST",
+      "path": "/api/v1/ratings/expert-assessments",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'assessment-create':"
+    },
+    {
+      "id": "POST /api/v1/ratings/expert-assessments/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/ratings/expert-assessments/{id}/decision",
+      "component": "pages/Details.tsx",
+      "marker": "`${prefix}/${id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/ratings/expert-assessments/{id}/submit",
+      "method": "POST",
+      "path": "/api/v1/ratings/expert-assessments/{id}/submit",
+      "component": "pages/Details.tsx",
+      "marker": "`/ratings/expert-assessments/${id}/submit`"
+    },
+    {
+      "id": "POST /api/v1/relationships/claims",
+      "method": "POST",
+      "path": "/api/v1/relationships/claims",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'claim-create':"
+    },
+    {
+      "id": "POST /api/v1/relationships/claims/{id}/begin-resolution",
+      "method": "POST",
+      "path": "/api/v1/relationships/claims/{id}/begin-resolution",
+      "component": "pages/Details.tsx",
+      "marker": "`/relationships/claims/${id}/begin-resolution`"
+    },
+    {
+      "id": "POST /api/v1/relationships/claims/{id}/resolve",
+      "method": "POST",
+      "path": "/api/v1/relationships/claims/{id}/resolve",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'claim-resolve':"
+    },
+    {
+      "id": "POST /api/v1/relationships/claims/{id}/send",
+      "method": "POST",
+      "path": "/api/v1/relationships/claims/{id}/send",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'claim-send':"
+    },
+    {
+      "id": "POST /api/v1/relationships/interactions",
+      "method": "POST",
+      "path": "/api/v1/relationships/interactions",
+      "component": "pages/Forms.tsx",
+      "marker": "'/relationships/interactions'"
+    },
+    {
+      "id": "POST /api/v1/suppliers",
+      "method": "POST",
+      "path": "/api/v1/suppliers",
+      "component": "pages/Forms.tsx",
+      "marker": "'/suppliers'"
+    },
+    {
+      "id": "POST /api/v1/suppliers/status-requests/{id}/decision",
+      "method": "POST",
+      "path": "/api/v1/suppliers/status-requests/{id}/decision",
+      "component": "pages/Registry.tsx",
+      "marker": "`/suppliers/status-requests/${review.id}/decision`"
+    },
+    {
+      "id": "POST /api/v1/suppliers/{id}/products",
+      "method": "POST",
+      "path": "/api/v1/suppliers/{id}/products",
+      "component": "pages/Details.tsx",
+      "marker": "`/suppliers/${id}/products`"
+    },
+    {
+      "id": "POST /api/v1/suppliers/{id}/status-requests",
+      "method": "POST",
+      "path": "/api/v1/suppliers/{id}/status-requests",
+      "component": "pages/Details.tsx",
+      "marker": "`/suppliers/${id}/status-requests`"
+    },
+    {
+      "id": "PUT /api/v1/orders/{id}/draft",
+      "method": "PUT",
+      "path": "/api/v1/orders/{id}/draft",
+      "component": "core/operationsApi.ts",
+      "marker": "case 'order-draft':"
+    },
+    {
+      "id": "PUT /api/v1/suppliers/{id}",
+      "method": "PUT",
+      "path": "/api/v1/suppliers/{id}",
+      "component": "pages/Forms.tsx",
+      "marker": "`/suppliers/${editId}`"
+    }
+  ]
+}

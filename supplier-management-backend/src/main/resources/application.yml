@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: supplier-management
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/supplier_management}
+    username: ${DB_USER:supplier}
+    password: ${DB_PASSWORD:supplier_local}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  jackson:
+    time-zone: UTC
+security:
+  jwt:
+    issuer: supplier-management
+    access-minutes: 15
+  cors:
+    allowed-origins: ${SECURITY_CORS_ALLOWED_ORIGINS:http://localhost:5173}
+server:
+  error:
+    include-message: never
+    include-stacktrace: never
+  port: ${PORT:8080}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

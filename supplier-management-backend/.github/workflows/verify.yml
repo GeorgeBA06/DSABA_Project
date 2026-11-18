@@ -1,0 +1,20 @@
+name: Verify supplier-management backend
+on:
+  push:
+  pull_request:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - name: Static model verification
+        run: python3 tools/verify_model.py
+      - name: Static API contract checks
+        run: python3 tools/verify_api_contract.py
+      - name: Compile and PostgreSQL integration tests
+        run: mvn -B clean verify

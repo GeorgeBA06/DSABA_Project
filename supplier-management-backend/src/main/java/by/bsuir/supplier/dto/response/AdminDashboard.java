@@ -1,0 +1,6 @@
+package by.bsuir.supplier.dto.response;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+public record AdminDashboard(long users) {}
