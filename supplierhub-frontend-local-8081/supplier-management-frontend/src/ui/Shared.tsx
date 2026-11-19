@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { ReactNode, FormEvent } from 'react';
+import { api } from '../core/api';
 import { formatDate, formatDecimal, label, shortId } from '../core/navigation';
 import type { Column } from '../core/resources';
 import type { JsonRecord } from '../core/types';
@@ -37,7 +38,14 @@ export function PrimaryButton({children,type='button',busy=false,disabled=false,
 export function SecondaryButton({children,onClick,disabled=false}:{children:ReactNode;onClick?:()=>void;disabled?:boolean}) {return <button className="btn btn-secondary" onClick={onClick} type="button" disabled={disabled}>{children}</button>;}
 export function PageHeading({title,subtitle,action}:{title:string;subtitle?:string;action?:ReactNode}) {return <div className="page-heading"><div><h1>{title}</h1>{subtitle && <p className="muted">{subtitle}</p>}</div>{action&&<div className="page-actions">{action}</div>}</div>;}
 export function Empty({title='Нет данных',description='Записей пока нет.'}:{title?:string;description?:string}) {return <div className="empty"><div className="empty-icon"><Icon name="grid" size={25}/></div><strong>{title}</strong><p className="muted">{description}</p></div>;}
-export function ErrorBanner({error,onRetry}:{error:unknown;onRetry?:()=>void}) {return <div className="error-banner" role="alert"><strong>Не удалось выполнить запрос.</strong><span>{error instanceof Error?error.message:String(error)}</span>{onRetry&&<SecondaryButton onClick={onRetry}>Повторить</SecondaryButton>}</div>;}
+export function ErrorBanner({error,onRetry}:{error:unknown;onRetry?:()=>void}) {
+ if (!error) return null;
+ return <div className="error-banner" role="alert">
+  <strong>Не удалось выполнить запрос.</strong>
+  <span>{error instanceof Error ? error.message : String(error)}</span>
+  {onRetry && <SecondaryButton onClick={onRetry}>Повторить</SecondaryButton>}
+ </div>;
+}
 export function Field({label:fieldLabel,children,hint}:{label:string;children:ReactNode;hint?:string}) {return <label className="field"><span>{fieldLabel}</span>{children}{hint&&<small className="muted">{hint}</small>}</label>;}
 export function TextInput({name,value,onChange,placeholder='',required=false,type='text',min,step,disabled=false}:{name:string;value:string|number;onChange?:(value:string)=>void;placeholder?:string;required?:boolean;type?:string;min?:number;step?:string;disabled?:boolean}) {
  return <input className="input" name={name} value={value} onChange={event=>onChange?.(event.target.value)} placeholder={placeholder} type={type} required={required} min={min} step={step} disabled={disabled}/>;
@@ -53,12 +61,12 @@ export function Pager({page,totalPages,totalElements,onChange}:{page:number;tota
 export function usePageData<T>(path:string,page:number,version:number=0) {
  const [data,setData]=useState<{items:T[];totalElements:number;totalPages:number}|null>(null);
  const [busy,setBusy]=useState(true);const [error,setError]=useState<unknown>(null);
- useEffect(()=>{let active=true; setBusy(true);setError(null);import('../core/api').then(({api})=>api.page<T>(path,page,20)).then(res=>{if(active)setData(res);}).catch(err=>{if(active)setError(err);}).finally(()=>{if(active)setBusy(false);});return()=>{active=false;};},[path,page,version]);
+ useEffect(()=>{let active=true; setBusy(true);setError(null);api.page<T>(path,page,20).then(res=>{if(active)setData(res);}).catch(err=>{if(active)setError(err);}).finally(()=>{if(active)setBusy(false);});return()=>{active=false;};},[path,page,version]);
  return {data,busy,error};
 }
 export function Loading(){return <div className="loading" role="status" aria-label="Загрузка данных"><div className="spinner"/>Загрузка данных...</div>;}
 export function ConfirmForm({title,description,onClose,onSubmit,commentLabel='Комментарий',requireComment=false}:{title:string;description?:string;onClose:()=>void;onSubmit:(comment:string)=>Promise<void>;commentLabel?:string;requireComment?:boolean}) {
  const [value,setValue]=useState('');const [busy,setBusy]=useState(false);const [error,setError]=useState<unknown>(null);
  const handle = async (e:FormEvent) => {e.preventDefault();setBusy(true);setError(null);try{await onSubmit(value);onClose();}catch(err){setError(err);}finally{setBusy(false);}};
- return <div className="modal-backdrop" role="presentation" onMouseDown={e=>{if(e.target===e.currentTarget)onClose();}}><section className="modal" role="dialog" aria-modal="true" aria-label={title}><header className="modal-title"><h2>{title}</h2><button className="icon-button" onClick={onClose} aria-label="Закрыть"><Icon name="close"/></button></header>{description&&<p className="muted">{description}</p>}<form onSubmit={handle}><Field label={commentLabel}><textarea className="input" rows={3} value={value} onChange={e=>setValue(e.target.value)} required={requireComment}/></Field>{error&&<ErrorBanner error={error}/>}<div className="modal-footer"><SecondaryButton onClick={onClose}>Отмена</SecondaryButton><PrimaryButton type="submit" busy={busy}>Подтвердить</PrimaryButton></div></form></section></div>;
+ return <div className="modal-backdrop" role="presentation" onMouseDown={e=>{if(e.target===e.currentTarget)onClose();}}><section className="modal" role="dialog" aria-modal="true" aria-label={title}><header className="modal-title"><h2>{title}</h2><button className="icon-button" onClick={onClose} aria-label="Закрыть"><Icon name="close"/></button></header>{description&&<p className="muted">{description}</p>}<form onSubmit={handle}><Field label={commentLabel}><textarea className="input" rows={3} value={value} onChange={e=>setValue(e.target.value)} required={requireComment}/></Field><ErrorBanner error={error}/><div className="modal-footer"><SecondaryButton onClick={onClose}>Отмена</SecondaryButton><PrimaryButton type="submit" busy={busy}>Подтвердить</PrimaryButton></div></form></section></div>;
 }

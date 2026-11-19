@@ -25,6 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 })
 @Testcontainers
 class ApiSecurityWorkflowIT {
+ private static final String JSON = "application/json";
+ private static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
  @Container static final PostgreSQLContainer<?> pg=new PostgreSQLContainer<>("postgres:16-alpine")
     .withDatabaseName("supplier_api_test").withUsername("supplier").withPassword("test_password");
  @DynamicPropertySource static void db(DynamicPropertyRegistry r){
@@ -35,10 +37,13 @@ class ApiSecurityWorkflowIT {
  final HttpClient client=HttpClient.newHttpClient();
  record Result(int status,JsonNode body,byte[] bytes){}
  Result call(String method,String path,Object request,String bearer)throws Exception{
+    return call(method,path,request,bearer,JSON);
+ }
+ Result call(String method,String path,Object request,String bearer,String accept)throws Exception{
     HttpRequest.Builder b=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+port+path))
-      .header("Accept","application/json");
+      .header("Accept",accept);
     if(bearer!=null)b.header("Authorization","Bearer "+bearer);
-    if(request!=null)b.header("Content-Type","application/json");
+    if(request!=null)b.header("Content-Type",JSON);
     byte[] payload=request==null?new byte[0]:json.writeValueAsBytes(request);
     b.method(method,HttpRequest.BodyPublishers.ofByteArray(payload));
     HttpResponse<byte[]> resp=client.send(b.build(),HttpResponse.BodyHandlers.ofByteArray());
@@ -114,7 +119,8 @@ class ApiSecurityWorkflowIT {
    assertEquals(200,call("POST","/api/v1/fulfillment/acceptances/"+value(inspection,"id")+"/confirm",null,specialist).status());
    Result rating=call("POST","/api/v1/ratings/calculate",Map.of("supplierId",supplierId,"scope","OVERALL"),manager);
    assertEquals(200,rating.status());assertEquals("PRELIMINARY",value(rating,"state"));
-   Result exported=call("GET","/api/v1/reports/suppliers.xlsx",null,manager);
+   assertEquals(406,call("GET","/api/v1/reports/suppliers.xlsx",null,manager).status());
+   Result exported=call("GET","/api/v1/reports/suppliers.xlsx",null,manager,XLSX);
    assertEquals(200,exported.status());assertEquals('P',exported.bytes()[0]);assertEquals('K',exported.bytes()[1]);
    Result loggedIn=call("POST","/api/v1/auth/login",Map.of("login",specialistLogin,"password","strong-test-password-12345"),null);
    String refresh=value(loggedIn,"refreshToken");

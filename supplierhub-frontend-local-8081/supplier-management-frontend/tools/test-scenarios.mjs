@@ -1,27 +1,10 @@
-import {readFileSync,writeFileSync,mkdtempSync,rmSync} from 'node:fs';
-import {tmpdir} from 'node:os';
-import {join,resolve,dirname} from 'node:path';
-import {createRequire} from 'node:module';
+import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-const require=createRequire(import.meta.url);
-// Prefer the project-installed TypeScript; fall back to the global CLI for offline auditing.
-let ts;
-try { ts=require('typescript'); }
-catch { const {execFileSync}=await import('node:child_process');
-  const globalDir=execFileSync('npm',['root','-g'],{encoding:'utf8'}).trim();
-  ts=require(resolve(globalDir,'typescript'));
-}
-const root=resolve(dirname(new URL(import.meta.url).pathname),'..');
-const scratch=mkdtempSync(join(tmpdir(),'supplier-ui-contract-'));
-for(const part of ['data','operationsApi']){
- const input=readFileSync(join(root,'src/core',part+'.ts'),'utf8');
- const compiled=ts.transpileModule(input,{fileName:part+'.ts',compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
- writeFileSync(join(scratch,part+'.mjs'),compiled.replaceAll("from './api'","from './api.mjs'").replaceAll("from './data'","from './data.mjs'"));
-}
-writeFileSync(join(scratch,'api.mjs'),"export const api={page:(...args)=>globalThis.__testApiPage(...args)};");
+import {api} from '../src/core/api.ts';
+import {allRows,supplierTransitions,canDecide,toOrderItems} from '../src/core/data.ts';
+import {buildOperationRequest} from '../src/core/operationsApi.ts';
+
 let assertions=0;
-const {buildOperationRequest}=await import('file://'+join(scratch,'operationsApi.mjs'));
-const {allRows,supplierTransitions,canDecide,toOrderItems}=await import('file://'+join(scratch,'data.mjs'));
 const id='11111111-1111-4111-8111-111111111111';
 const date='2026-10-30';
 const item={productId:id,quantity:'2',unitPrice:'12.50',dueOn:date};
@@ -44,7 +27,7 @@ const samples=[
  use('assessment-create',{supplierId:id,periodStart:date,periodEnd:date,applicableFrom:date,applicableTo:'2026-11-15',score:'75',justification:'Взаимодействие удовлетворительно'}),
  use('rating-calculate',{supplierId:id,scope:'OVERALL'})
 ];
-const openapi=JSON.parse(readFileSync(join(root,'docs/backend-openapi-stage4.json'),'utf8'));
+const openapi=JSON.parse(readFileSync(new URL('../docs/backend-openapi-stage4.json', import.meta.url),'utf8'));
 const schemas=openapi.components.schemas;
 const resolveSchema=s=>s?.$ref?schemas[s.$ref.split('/').at(-1)]:s;
 function validate(schema,data,path='root'){
@@ -89,7 +72,6 @@ for(const [kind,value,lines] of [ ['order-increase',{orderLineId:id,additional:'
 }
 assert.deepEqual(toOrderItems([item]),[{productId:id,quantity:2,unitPrice:12.5,dueOn:date}]);assertions++;
 let requests=0;
-globalThis.__testApiPage=async(_p,page)=>{requests++;return {items:[{id:String(page)}],totalPages:4,totalElements:4,page,size:100};};
+api.page=async(_p,page)=>{requests++;return {items:[{id:String(page)}],totalPages:4,totalElements:4,page,size:100};};
 assert.equal((await allRows('/catalog/products')).length,4);assert.equal(requests,4);assertions+=2;
-rmSync(scratch,{recursive:true,force:true});
 console.log(`PASS: ${samples.length} контрактов новых сценариев, ${assertions} утверждений (валидация запросов по Stage 4 OpenAPI + роль/состояния/пагинация)`);

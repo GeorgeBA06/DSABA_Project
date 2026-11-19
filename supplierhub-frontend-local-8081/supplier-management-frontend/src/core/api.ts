@@ -1,9 +1,15 @@
 import type { ApiMethod, Page, Tokens } from './types';
 
-const BASE = (import.meta.env.VITE_API_BASE_URL || '/api/v1').replace(/\/$/, '');
+const BASE = (import.meta.env?.VITE_API_BASE_URL || '/api/v1').replace(/\/$/, '');
 const REFRESH_KEY = 'supplierhub_refresh';
 export class ApiError extends Error {
-  constructor(readonly status: number, message: string) { super(message); this.name = 'ApiError'; }
+  readonly status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.name = 'ApiError';
+    this.status = status;
+  }
 }
 function readRefresh(): string | null { return sessionStorage.getItem(REFRESH_KEY); }
 function setRefresh(value: string | null): void {
@@ -23,7 +29,7 @@ async function parseResponse<T>(res: Response): Promise<T> {
   }
   return body as T;
 }
-class ApiClient {
+export class ApiClient {
   private accessToken: string | null = null;
   private pendingRefresh: Promise<boolean> | null = null;
   private expireHandler: (() => void) | null = null;
@@ -32,40 +38,64 @@ class ApiClient {
   clear() { this.accessToken = null; setRefresh(null); }
   install(tokens: Tokens) { this.accessToken = tokens.accessToken; setRefresh(tokens.refreshToken); }
   async login(login: string, password: string) {
-    const result = await this.raw<Tokens>('POST', '/auth/login', {login, password}); this.install(result); return result;
+    const response = await this.send('POST', '/auth/login', {login, password});
+    const tokens = await parseResponse<Tokens>(response);
+    this.install(tokens);
+    return tokens;
   }
-  private async raw<T>(method: ApiMethod, path: string, body?: unknown, bearer?: string | null): Promise<T> {
-    let response: Response;
+  private async send(method: ApiMethod, path: string, body?: unknown, bearer?: string | null): Promise<Response> {
     try {
-      response = await fetch(`${BASE}${path}`, {
+      return await fetch(`${BASE}${path}`, {
         method, credentials: 'omit',
         headers: { ...(body === undefined ? {} : {'Content-Type': 'application/json'}), ...(bearer ? {'Authorization': `Bearer ${bearer}`} : {}) },
         body: body === undefined ? undefined : JSON.stringify(body)
       });
     } catch { throw new ApiError(0, 'Сервер недоступен. Проверьте соединение и адрес API.'); }
-    return parseResponse<T>(response);
   }
   async refresh(): Promise<boolean> {
     if (this.pendingRefresh) return this.pendingRefresh;
     const token = readRefresh(); if (!token) return false;
     this.pendingRefresh = (async () => {
-      try { this.install(await this.raw<Tokens>('POST', '/auth/refresh', {refreshToken:token})); return true; }
-      catch { this.clear(); this.expireHandler?.(); return false; }
+      try {
+        const response = await this.send('POST', '/auth/refresh', {refreshToken: token});
+        this.install(await parseResponse<Tokens>(response));
+        return true;
+      } catch {
+        this.expireSession();
+        return false;
+      }
     })();
     try { return await this.pendingRefresh; } finally { this.pendingRefresh = null; }
   }
-  async request<T>(method: ApiMethod, path: string, body?: unknown): Promise<T> {
-    if (!this.accessToken && this.hasRefresh()) await this.refresh();
-    try { return await this.raw<T>(method, path, body, this.accessToken); }
-    catch (error) {
-      if (!(error instanceof ApiError) || error.status !== 401 || !this.hasRefresh()) {
-        if (error instanceof ApiError && error.status === 401) { this.clear(); this.expireHandler?.(); }
-        throw error;
-      }
-      const refreshed = await this.refresh();
-      if (!refreshed) throw new ApiError(401, 'Сеанс истёк. Войдите повторно.');
-      return this.raw<T>(method, path, body, this.accessToken);
+  private expireSession() {
+    if (!this.accessToken && !this.hasRefresh()) return;
+    this.clear();
+    this.expireHandler?.();
+  }
+
+  private async authorizedResponse(method: ApiMethod, path: string, body?: unknown): Promise<Response> {
+    if (!this.accessToken && this.hasRefresh() && !(await this.refresh())) {
+      throw new ApiError(401, 'Сеанс истёк. Войдите повторно.');
     }
+
+    const bearer = this.accessToken;
+    let response = await this.send(method, path, body, bearer);
+    if (response.status !== 401) return response;
+
+    if (this.hasRefresh()) {
+      // A concurrent request may already have refreshed the access token.
+      if (bearer === this.accessToken && !(await this.refresh())) {
+        throw new ApiError(401, 'Сеанс истёк. Войдите повторно.');
+      }
+      response = await this.send(method, path, body, this.accessToken);
+    }
+
+    if (response.status === 401) this.expireSession();
+    return response;
+  }
+
+  async request<T>(method: ApiMethod, path: string, body?: unknown): Promise<T> {
+    return parseResponse<T>(await this.authorizedResponse(method, path, body));
   }
   get<T>(path: string) { return this.request<T>('GET', path); }
   post<T>(path: string, body?: unknown) { return this.request<T>('POST', path, body); }
@@ -77,10 +107,7 @@ class ApiClient {
     return this.get<Page<T>>(`${path}${separator}page=${page}&size=${size}`);
   }
   async download(path: string, filename: string) {
-    if (!this.accessToken && this.hasRefresh()) await this.refresh();
-    const downloadOnce = () => fetch(`${BASE}${path}`, {headers: this.accessToken ? {Authorization:`Bearer ${this.accessToken}`} : {}});
-    let res = await downloadOnce();
-    if (res.status === 401 && await this.refresh()) res = await downloadOnce();
+    const res = await this.authorizedResponse('GET', path);
     if (!res.ok) return parseResponse<never>(res);
     const blob = await res.blob();
     const url = URL.createObjectURL(blob);

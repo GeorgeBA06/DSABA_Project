@@ -26,13 +26,13 @@ React 19 + TypeScript + Vite, REST/JSON; единый тёмно-синий side
 
 ## Запуск на локальном компьютере
 
-Требования: Node.js с поддержкой Vite 8, npm, запущенный backend Stage 4 и PostgreSQL.
+Требования: Node.js 22.18+ и npm. Для запуска приложения нужны backend на порту 8081 и PostgreSQL.
 
 1. Распакуйте оба архива. Сначала запустите backend по его README, включая генерацию локальной RSA-пары, настройку БД и bootstrap-администратора.
 2. В каталоге frontend выполните:
 
 ```bash
-npm install
+npm ci
 npm run check
 npm run build
 npm run test:offline
@@ -42,12 +42,10 @@ npm run dev
 3. Откройте `http://localhost:5173`, выполните вход bootstrap-администратором и создайте закупочные учётные записи. Vite проксирует `/api` на `http://localhost:8081`; CORS при этом не нужен.
 4. Если backend расположен на другом хосте, задайте публичную `VITE_API_BASE_URL=https://<host>/api/v1`, обеспечьте HTTPS и разрешённый CORS.
 
-**Установка зависимостей в окружении, где был подготовлен этот выпуск, заблокирована сетью (npm registry).** Поэтому `npm run check`, настоящая Vite-сборка и открытие React-приложения в браузере ещё не выполнены. `package-lock.json` здесь не создавался; его следует получить при первом успешном `npm install` и затем сохранить в репозитории.
-
 ## Проверки
 
 ```bash
-npm run test:offline        # Статическая матрица 97/97 + OpenAPI + DTO + HTTP-клиент (без npm-пакетов, нужен TypeScript)
+npm run test:offline        # Статическая матрица 97/97 + OpenAPI + DTO + HTTP-клиент
 npm run test:contracts      # Матрица 97/97 и чистые builders
 npm run test:http-client    # Клиент: JWT, refresh, 401/403, конкурентные запросы
 ```

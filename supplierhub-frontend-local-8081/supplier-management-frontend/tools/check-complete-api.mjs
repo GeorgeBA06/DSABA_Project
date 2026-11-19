@@ -3,15 +3,7 @@
  * It does NOT claim that the server/database executed the operation. */
 import {readFileSync,writeFileSync} from 'node:fs';
 import {resolve,dirname} from 'node:path';
-import {createRequire} from 'node:module';
-const require=createRequire(import.meta.url);
-// Prefer the project-installed TypeScript; fall back to the global CLI for offline auditing.
-let ts;
-try { ts=require('typescript'); }
-catch { const {execFileSync}=await import('node:child_process');
-  const globalDir=execFileSync('npm',['root','-g'],{encoding:'utf8'}).trim();
-  ts=require(resolve(globalDir,'typescript'));
-}
+import {resources} from '../src/core/resources.ts';
 const dir=resolve(dirname(new URL(import.meta.url).pathname),'..');
 const openapi=JSON.parse(readFileSync(resolve(dir,'docs/backend-openapi-stage4.json')));
 const read=file=>readFileSync(resolve(dir,'src',file),'utf8');
@@ -22,8 +14,6 @@ const source={
  'pages/Workflows.tsx':read('pages/Workflows.tsx'),'pages/Registry.tsx':read('pages/Registry.tsx'),
  'pages/Dashboard.tsx':read('pages/Dashboard.tsx'),'pages/Reports.tsx':read('pages/Reports.tsx'),
  'ui/Layout.tsx':read('ui/Layout.tsx'),'App.tsx':read('App.tsx')};
-const compiled=ts.transpileModule(source['core/resources.ts'],{compilerOptions:{module:ts.ModuleKind.ESNext}}).outputText;
-const {resources}=await import('data:text/javascript;base64,'+Buffer.from(compiled).toString('base64'));
 const evidence=new Map();
 const add=(method,path,file,marker)=>{
  const key=`${method.toUpperCase()} /api/v1${path}`;
@@ -118,5 +108,5 @@ const missing=expected.filter(x=>!evidence.has(x));
 const extra=[...evidence.keys()].filter(x=>!expected.includes(x));
 if(missing.length||extra.length){console.error({missing,extra});process.exit(1);}
 const report={version:openapi.info.version,count:expected.length,verifiedAt:'31 октября 2026',assessment:'static UI reachability and source markers; not HTTP E2E',operations:expected.sort().map(id=>({id,...evidence.get(id)}))};
-writeFileSync(resolve(dir,'docs/API_UI_COVERAGE.json'),JSON.stringify(report,null,2)+'\n');
+if (process.argv.includes('--write-report')) writeFileSync(resolve(dir,'docs/API_UI_COVERAGE.json'),JSON.stringify(report,null,2)+'\n');
 console.log(`PASS: ${expected.length}/${expected.length} маршрутов/методов сопоставлены с UI и исходными маркерами; ${Object.keys(operations).length} интерактивных форм доступны через навигацию.`);

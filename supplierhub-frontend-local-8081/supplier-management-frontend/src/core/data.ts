@@ -1,4 +1,4 @@
-import {api} from './api';
+import {api} from './api.ts';
 import type {JsonRecord} from './types';
 /** The backend provides offset pagination, not a server-side lookup endpoint for every selector.
  * Fetch all pages of the small course-project reference directories rather than silently

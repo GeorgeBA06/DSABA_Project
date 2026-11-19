@@ -1,26 +1,13 @@
 /** Real ApiClient logic with controlled HTTP responses; no React, network or PostgreSQL.
  * Checks authorization, refresh rotation, concurrency and safe failure modes. */
 import assert from 'node:assert/strict';
-import {resolve} from 'node:path';
-import {readFileSync} from 'node:fs';
-import {createRequire} from 'node:module';
-const require=createRequire(import.meta.url);
-// Prefer the project-installed TypeScript; fall back to the global CLI for offline auditing.
-let ts;
-try { ts=require('typescript'); }
-catch { const {execFileSync}=await import('node:child_process');
-  const globalDir=execFileSync('npm',['root','-g'],{encoding:'utf8'}).trim();
-  ts=require(resolve(globalDir,'typescript'));
-}
-const source=readFileSync(new URL('../src/core/api.ts',import.meta.url),'utf8')
- .replaceAll('import.meta.env.VITE_API_BASE_URL', 'globalThis.__supplierTestBase');
-const output=ts.transpileModule(source,{fileName:'api.ts',compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.CommonJS}}).outputText;
+import {ApiClient} from '../src/core/api.ts';
+
 const SESSION=new Map();
-globalThis.__supplierTestBase='/api/v1';
 globalThis.sessionStorage={getItem:k=>SESSION.get(k)??null,setItem:(k,v)=>SESSION.set(k,String(v)),removeItem:k=>SESSION.delete(k)};
 const ok=(data,status=200,extra={})=>new Response(status===204?null:JSON.stringify(data),{status,headers:{'content-type':'application/json',...extra}});
 const fail=(status,message)=>ok({message},status);
-function setup(handler){SESSION.clear();const module={exports:{}};globalThis.fetch=handler;new Function('module','exports',output)(module,module.exports);return module.exports.api;}
+function setup(handler){SESSION.clear();globalThis.fetch=handler;return new ApiClient();}
 const hits=[];let assertions=0;
 {
  const api=setup(async(url,init)=>{hits.push({url,init});
@@ -86,4 +73,40 @@ const hits=[];let assertions=0;
  SESSION.set('supplierhub_refresh','persisted');
  const me=await api.get('/auth/me');assert.equal(me.user.id,'x');assert.equal(SESSION.get('supplierhub_refresh'),'rotated');assertions+=2;
 }
-console.log(`PASS: ${assertions} HTTP-client assertions: login, JWT bearer, 401 refresh retry, parallel refresh, logout, 403, 204, offline, session restore.`);
+{
+ // A slower 401 from the old access token must reuse the already-rotated token.
+ const delayed = Promise.withResolvers();
+ let refreshCount = 0;
+ const api = setup(async (url, init) => {
+  if (url.endsWith('/auth/login')) return ok({accessToken:'old',refreshToken:'r1'});
+  if (url.endsWith('/auth/refresh')) {
+   refreshCount++;
+   return ok({accessToken:'new',refreshToken:'r2'});
+  }
+  if (init.headers.Authorization === 'Bearer new') return ok({id:'record'});
+  return url.endsWith('/slow') ? delayed.promise : fail(401,'Expired');
+ });
+ await api.login('tester','password');
+ const slow = api.get('/slow');
+ await api.get('/fast');
+ delayed.resolve(fail(401,'Expired'));
+ assert.equal((await slow).id,'record');
+ assert.equal(refreshCount,1);
+ assertions += 2;
+}
+{
+ // A refused retry must expire the session for downloads as well as JSON requests.
+ let expired = 0;
+ const api = setup(async url => {
+  if (url.endsWith('/auth/login')) return ok({accessToken:'old',refreshToken:'r1'});
+  if (url.endsWith('/auth/refresh')) return ok({accessToken:'new',refreshToken:'r2'});
+  return fail(401,'Сессия отозвана');
+ });
+ api.onExpire(() => { expired++; });
+ await api.login('tester','password');
+ await assert.rejects(() => api.download('/reports/suppliers.xlsx','report.xlsx'), e => e.status === 401);
+ assert.equal(expired,1);
+ assert.equal(api.hasRefresh(),false);
+ assertions += 3;
+}
+console.log(`PASS: ${assertions} HTTP-client assertions: login, JWT bearer, 401 refresh retry, parallel refresh, logout, 403, 204, offline, session restore, delayed 401 and rejected download.`);

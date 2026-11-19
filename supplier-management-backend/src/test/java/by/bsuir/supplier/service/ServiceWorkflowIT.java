@@ -162,8 +162,10 @@ class ServiceWorkflowIT {
         FactCorrection c=corrections.proposeReceipt(f.specialist(),d.getId(),today,"Ошибочно внесённое количество",
             List.of(new CorrectionService.ReceiptFix(f.segment(),new BigDecimal("9"))));
         corrections.submit(f.specialist(),c.getId());corrections.decide(f.manager(),c.getId(),true,"Исправлено");
-        assertEquals(new BigDecimal("9"),ledger.snapshot(f.order()).deliveredForSegment(
-            segments.findByOrderVersion_Id(orderVersions.findByOrder_Id(f.order()).get(0).getId()).get(0).getSegmentKey(),null));
+        String segmentKey = segments.findByOrderVersion_Id(
+            orderVersions.findByOrder_Id(f.order()).get(0).getId()).get(0).getSegmentKey();
+        assertEquals(0, new BigDecimal("9").compareTo(
+            ledger.snapshot(f.order()).deliveredForSegment(segmentKey, null)));
     }
     @Test void rejectedFirstOrderIsResubmittedAsAnImmutableRevision(){
         Fixture f=createFixture(new BigDecimal("10"));

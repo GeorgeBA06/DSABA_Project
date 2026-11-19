@@ -1,5 +1,5 @@
 import type {JsonRecord} from './types';
-import {requireNumber,toOrderItems} from './data';
+import {requireNumber,toOrderItems} from './data.ts';
 const required=(v:unknown,n:string)=>{const t=String(v??'').trim();if(!t)throw new Error(`Заполните поле «${n}».`);return t;};
 const positive=(v:unknown,n:string)=>requireNumber(v,n);
 export interface OperationRequest {method:'POST'|'PUT'; endpoint:string;payload:unknown;}
