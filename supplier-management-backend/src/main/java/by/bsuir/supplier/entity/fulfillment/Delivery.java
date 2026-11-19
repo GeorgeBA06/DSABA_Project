@@ -1,16 +1,14 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.order.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for deliveries. No business decisions belong here. */
 @Entity
@@ -52,31 +50,75 @@ public class Delivery {
 
     public Delivery() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public PurchaseOrder getOrder() { return order; }
-    public void setOrder(PurchaseOrder value) { this.order = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public LocalDate getArrivedOn() { return arrivedOn; }
-    public void setArrivedOn(LocalDate value) { this.arrivedOn = value; }
+    public PurchaseOrder getOrder() {
+        return order;
+    }
 
-    public Instant getRegisteredAt() { return registeredAt; }
-    public void setRegisteredAt(Instant value) { this.registeredAt = value; }
+    public void setOrder(PurchaseOrder value) {
+        this.order = value;
+    }
 
-    public User getRegisteredBy() { return registeredBy; }
-    public void setRegisteredBy(User value) { this.registeredBy = value; }
+    public LocalDate getArrivedOn() {
+        return arrivedOn;
+    }
 
-    public FactState getState() { return state; }
-    public void setState(FactState value) { this.state = value; }
+    public void setArrivedOn(LocalDate value) {
+        this.arrivedOn = value;
+    }
 
-    public String getExternalNumber() { return externalNumber; }
-    public void setExternalNumber(String value) { this.externalNumber = value; }
+    public Instant getRegisteredAt() {
+        return registeredAt;
+    }
 
-    public Delivery getSupersedes() { return supersedes; }
-    public void setSupersedes(Delivery value) { this.supersedes = value; }
+    public void setRegisteredAt(Instant value) {
+        this.registeredAt = value;
+    }
 
-    public FactCorrection getCorrection() { return correction; }
-    public void setCorrection(FactCorrection value) { this.correction = value; }
+    public User getRegisteredBy() {
+        return registeredBy;
+    }
 
+    public void setRegisteredBy(User value) {
+        this.registeredBy = value;
+    }
+
+    public FactState getState() {
+        return state;
+    }
+
+    public void setState(FactState value) {
+        this.state = value;
+    }
+
+    public String getExternalNumber() {
+        return externalNumber;
+    }
+
+    public void setExternalNumber(String value) {
+        this.externalNumber = value;
+    }
+
+    public Delivery getSupersedes() {
+        return supersedes;
+    }
+
+    public void setSupersedes(Delivery value) {
+        this.supersedes = value;
+    }
+
+    public FactCorrection getCorrection() {
+        return correction;
+    }
+
+    public void setCorrection(FactCorrection value) {
+        this.correction = value;
+    }
 }

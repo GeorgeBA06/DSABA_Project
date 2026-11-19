@@ -1,17 +1,16 @@
 package by.bsuir.supplier.entity.supplier;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 
-/** Persisted aggregate/data record for supplier_status_requests. No business decisions belong here. */
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
+
+/**
+ * Persisted aggregate/data record for supplier_status_requests. No business decisions belong here.
+ */
 @Entity
 @Table(name = "supplier_status_requests")
 public class SupplierStatusRequest {
@@ -58,37 +57,91 @@ public class SupplierStatusRequest {
 
     public SupplierStatusRequest() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public SupplierStatus getFromStatus() { return fromStatus; }
-    public void setFromStatus(SupplierStatus value) { this.fromStatus = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public SupplierStatus getToStatus() { return toStatus; }
-    public void setToStatus(SupplierStatus value) { this.toStatus = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String value) { this.reason = value; }
+    public SupplierStatus getFromStatus() {
+        return fromStatus;
+    }
 
-    public User getRequestedBy() { return requestedBy; }
-    public void setRequestedBy(User value) { this.requestedBy = value; }
+    public void setFromStatus(SupplierStatus value) {
+        this.fromStatus = value;
+    }
 
-    public Instant getRequestedAt() { return requestedAt; }
-    public void setRequestedAt(Instant value) { this.requestedAt = value; }
+    public SupplierStatus getToStatus() {
+        return toStatus;
+    }
 
-    public DecisionState getState() { return state; }
-    public void setState(DecisionState value) { this.state = value; }
+    public void setToStatus(SupplierStatus value) {
+        this.toStatus = value;
+    }
 
-    public User getDecidedBy() { return decidedBy; }
-    public void setDecidedBy(User value) { this.decidedBy = value; }
+    public String getReason() {
+        return reason;
+    }
 
-    public Instant getDecidedAt() { return decidedAt; }
-    public void setDecidedAt(Instant value) { this.decidedAt = value; }
+    public void setReason(String value) {
+        this.reason = value;
+    }
 
-    public String getDecisionComment() { return decisionComment; }
-    public void setDecisionComment(String value) { this.decisionComment = value; }
+    public User getRequestedBy() {
+        return requestedBy;
+    }
 
+    public void setRequestedBy(User value) {
+        this.requestedBy = value;
+    }
+
+    public Instant getRequestedAt() {
+        return requestedAt;
+    }
+
+    public void setRequestedAt(Instant value) {
+        this.requestedAt = value;
+    }
+
+    public DecisionState getState() {
+        return state;
+    }
+
+    public void setState(DecisionState value) {
+        this.state = value;
+    }
+
+    public User getDecidedBy() {
+        return decidedBy;
+    }
+
+    public void setDecidedBy(User value) {
+        this.decidedBy = value;
+    }
+
+    public Instant getDecidedAt() {
+        return decidedAt;
+    }
+
+    public void setDecidedAt(Instant value) {
+        this.decidedAt = value;
+    }
+
+    public String getDecisionComment() {
+        return decisionComment;
+    }
+
+    public void setDecisionComment(String value) {
+        this.decisionComment = value;
+    }
 }

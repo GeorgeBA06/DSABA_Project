@@ -1,14 +1,11 @@
 package by.bsuir.supplier.entity.auth;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for user_role_assignments. No business decisions belong here. */
 @Entity
@@ -39,22 +36,51 @@ public class UserRoleAssignment {
 
     public UserRoleAssignment() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User value) { this.user = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public RoleCode getRoleCode() { return roleCode; }
-    public void setRoleCode(RoleCode value) { this.roleCode = value; }
+    public User getUser() {
+        return user;
+    }
 
-    public User getAssignedBy() { return assignedBy; }
-    public void setAssignedBy(User value) { this.assignedBy = value; }
+    public void setUser(User value) {
+        this.user = value;
+    }
 
-    public Instant getAssignedAt() { return assignedAt; }
-    public void setAssignedAt(Instant value) { this.assignedAt = value; }
+    public RoleCode getRoleCode() {
+        return roleCode;
+    }
 
-    public Instant getRevokedAt() { return revokedAt; }
-    public void setRevokedAt(Instant value) { this.revokedAt = value; }
+    public void setRoleCode(RoleCode value) {
+        this.roleCode = value;
+    }
 
+    public User getAssignedBy() {
+        return assignedBy;
+    }
+
+    public void setAssignedBy(User value) {
+        this.assignedBy = value;
+    }
+
+    public Instant getAssignedAt() {
+        return assignedAt;
+    }
+
+    public void setAssignedAt(Instant value) {
+        this.assignedAt = value;
+    }
+
+    public Instant getRevokedAt() {
+        return revokedAt;
+    }
+
+    public void setRevokedAt(Instant value) {
+        this.revokedAt = value;
+    }
 }

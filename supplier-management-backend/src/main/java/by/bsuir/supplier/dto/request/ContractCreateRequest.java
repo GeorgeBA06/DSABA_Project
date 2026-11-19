@@ -1,13 +1,9 @@
 package by.bsuir.supplier.dto.request;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-public record ContractCreateRequest(@NotNull UUID supplierId, @NotNull @Valid ContractTermsRequest terms) {}
+import java.util.UUID;
+
+public record ContractCreateRequest(
+        @NotNull UUID supplierId, @NotNull @Valid ContractTermsRequest terms) {}

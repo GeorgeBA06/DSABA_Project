@@ -1,14 +1,12 @@
 package by.bsuir.supplier.entity.order;
 
+import by.bsuir.supplier.entity.enums.*;
+
 import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for order_version_lines. No business decisions belong here. */
 @Entity
@@ -64,46 +62,115 @@ public class OrderVersionLine {
 
     public OrderVersionLine() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public OrderVersion getOrderVersion() { return orderVersion; }
-    public void setOrderVersion(OrderVersion value) { this.orderVersion = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public OrderLine getOrderLine() { return orderLine; }
-    public void setOrderLine(OrderLine value) { this.orderLine = value; }
+    public OrderVersion getOrderVersion() {
+        return orderVersion;
+    }
 
-    public String getSegmentKey() { return segmentKey; }
-    public void setSegmentKey(String value) { this.segmentKey = value; }
+    public void setOrderVersion(OrderVersion value) {
+        this.orderVersion = value;
+    }
 
-    public OrderVersionLine getSourceVersionLine() { return sourceVersionLine; }
-    public void setSourceVersionLine(OrderVersionLine value) { this.sourceVersionLine = value; }
+    public OrderLine getOrderLine() {
+        return orderLine;
+    }
 
-    public BigDecimal getQuantity() { return quantity; }
-    public void setQuantity(BigDecimal value) { this.quantity = value; }
+    public void setOrderLine(OrderLine value) {
+        this.orderLine = value;
+    }
 
-    public BigDecimal getUnitPrice() { return unitPrice; }
-    public void setUnitPrice(BigDecimal value) { this.unitPrice = value; }
+    public String getSegmentKey() {
+        return segmentKey;
+    }
 
-    public LocalDate getExecutionDueOn() { return executionDueOn; }
-    public void setExecutionDueOn(LocalDate value) { this.executionDueOn = value; }
+    public void setSegmentKey(String value) {
+        this.segmentKey = value;
+    }
 
-    public LocalDate getRatingDueOn() { return ratingDueOn; }
-    public void setRatingDueOn(LocalDate value) { this.ratingDueOn = value; }
+    public OrderVersionLine getSourceVersionLine() {
+        return sourceVersionLine;
+    }
 
-    public OriginReason getOriginReason() { return originReason; }
-    public void setOriginReason(OriginReason value) { this.originReason = value; }
+    public void setSourceVersionLine(OrderVersionLine value) {
+        this.sourceVersionLine = value;
+    }
 
-    public String getProductNameSnapshot() { return productNameSnapshot; }
-    public void setProductNameSnapshot(String value) { this.productNameSnapshot = value; }
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
 
-    public String getCategoryCodeSnapshot() { return categoryCodeSnapshot; }
-    public void setCategoryCodeSnapshot(String value) { this.categoryCodeSnapshot = value; }
+    public void setQuantity(BigDecimal value) {
+        this.quantity = value;
+    }
 
-    public String getCategoryNameSnapshot() { return categoryNameSnapshot; }
-    public void setCategoryNameSnapshot(String value) { this.categoryNameSnapshot = value; }
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
 
-    public String getUnitCodeSnapshot() { return unitCodeSnapshot; }
-    public void setUnitCodeSnapshot(String value) { this.unitCodeSnapshot = value; }
+    public void setUnitPrice(BigDecimal value) {
+        this.unitPrice = value;
+    }
 
+    public LocalDate getExecutionDueOn() {
+        return executionDueOn;
+    }
+
+    public void setExecutionDueOn(LocalDate value) {
+        this.executionDueOn = value;
+    }
+
+    public LocalDate getRatingDueOn() {
+        return ratingDueOn;
+    }
+
+    public void setRatingDueOn(LocalDate value) {
+        this.ratingDueOn = value;
+    }
+
+    public OriginReason getOriginReason() {
+        return originReason;
+    }
+
+    public void setOriginReason(OriginReason value) {
+        this.originReason = value;
+    }
+
+    public String getProductNameSnapshot() {
+        return productNameSnapshot;
+    }
+
+    public void setProductNameSnapshot(String value) {
+        this.productNameSnapshot = value;
+    }
+
+    public String getCategoryCodeSnapshot() {
+        return categoryCodeSnapshot;
+    }
+
+    public void setCategoryCodeSnapshot(String value) {
+        this.categoryCodeSnapshot = value;
+    }
+
+    public String getCategoryNameSnapshot() {
+        return categoryNameSnapshot;
+    }
+
+    public void setCategoryNameSnapshot(String value) {
+        this.categoryNameSnapshot = value;
+    }
+
+    public String getUnitCodeSnapshot() {
+        return unitCodeSnapshot;
+    }
+
+    public void setUnitCodeSnapshot(String value) {
+        this.unitCodeSnapshot = value;
+    }
 }

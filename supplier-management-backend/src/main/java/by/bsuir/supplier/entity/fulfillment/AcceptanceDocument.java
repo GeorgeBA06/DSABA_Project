@@ -1,15 +1,13 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for acceptance_documents. No business decisions belong here. */
 @Entity
@@ -48,28 +46,67 @@ public class AcceptanceDocument {
 
     public AcceptanceDocument() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Delivery getDelivery() { return delivery; }
-    public void setDelivery(Delivery value) { this.delivery = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public LocalDate getInspectedOn() { return inspectedOn; }
-    public void setInspectedOn(LocalDate value) { this.inspectedOn = value; }
+    public Delivery getDelivery() {
+        return delivery;
+    }
 
-    public User getRegisteredBy() { return registeredBy; }
-    public void setRegisteredBy(User value) { this.registeredBy = value; }
+    public void setDelivery(Delivery value) {
+        this.delivery = value;
+    }
 
-    public Instant getRegisteredAt() { return registeredAt; }
-    public void setRegisteredAt(Instant value) { this.registeredAt = value; }
+    public LocalDate getInspectedOn() {
+        return inspectedOn;
+    }
 
-    public FactState getState() { return state; }
-    public void setState(FactState value) { this.state = value; }
+    public void setInspectedOn(LocalDate value) {
+        this.inspectedOn = value;
+    }
 
-    public AcceptanceDocument getSupersedes() { return supersedes; }
-    public void setSupersedes(AcceptanceDocument value) { this.supersedes = value; }
+    public User getRegisteredBy() {
+        return registeredBy;
+    }
 
-    public FactCorrection getCorrection() { return correction; }
-    public void setCorrection(FactCorrection value) { this.correction = value; }
+    public void setRegisteredBy(User value) {
+        this.registeredBy = value;
+    }
 
+    public Instant getRegisteredAt() {
+        return registeredAt;
+    }
+
+    public void setRegisteredAt(Instant value) {
+        this.registeredAt = value;
+    }
+
+    public FactState getState() {
+        return state;
+    }
+
+    public void setState(FactState value) {
+        this.state = value;
+    }
+
+    public AcceptanceDocument getSupersedes() {
+        return supersedes;
+    }
+
+    public void setSupersedes(AcceptanceDocument value) {
+        this.supersedes = value;
+    }
+
+    public FactCorrection getCorrection() {
+        return correction;
+    }
+
+    public void setCorrection(FactCorrection value) {
+        this.correction = value;
+    }
 }

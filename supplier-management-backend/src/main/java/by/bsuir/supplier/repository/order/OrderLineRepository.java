@@ -1,10 +1,10 @@
 package by.bsuir.supplier.repository.order;
 
-import java.util.UUID;
+import by.bsuir.supplier.entity.order.OrderLine;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import by.bsuir.supplier.entity.order.OrderLine;
+import java.util.UUID;
 
 /** Type-safe persistence gateway. Business validation belongs to service transactions. */
 public interface OrderLineRepository extends JpaRepository<OrderLine, UUID> {

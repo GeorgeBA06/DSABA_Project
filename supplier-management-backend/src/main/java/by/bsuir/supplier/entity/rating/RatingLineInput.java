@@ -1,15 +1,13 @@
 package by.bsuir.supplier.entity.rating;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.order.*;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for rating_line_inputs. No business decisions belong here. */
 @Entity
@@ -64,46 +62,115 @@ public class RatingLineInput {
 
     public RatingLineInput() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public SupplierRating getRating() { return rating; }
-    public void setRating(SupplierRating value) { this.rating = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public OrderVersionLine getOrderVersionLine() { return orderVersionLine; }
-    public void setOrderVersionLine(OrderVersionLine value) { this.orderVersionLine = value; }
+    public SupplierRating getRating() {
+        return rating;
+    }
 
-    public SelectionReason getSelectionReason() { return selectionReason; }
-    public void setSelectionReason(SelectionReason value) { this.selectionReason = value; }
+    public void setRating(SupplierRating value) {
+        this.rating = value;
+    }
 
-    public BigDecimal getOrderedQty() { return orderedQty; }
-    public void setOrderedQty(BigDecimal value) { this.orderedQty = value; }
+    public OrderVersionLine getOrderVersionLine() {
+        return orderVersionLine;
+    }
 
-    public BigDecimal getDeliveredOnTimeQty() { return deliveredOnTimeQty; }
-    public void setDeliveredOnTimeQty(BigDecimal value) { this.deliveredOnTimeQty = value; }
+    public void setOrderVersionLine(OrderVersionLine value) {
+        this.orderVersionLine = value;
+    }
 
-    public BigDecimal getFulfilledQty() { return fulfilledQty; }
-    public void setFulfilledQty(BigDecimal value) { this.fulfilledQty = value; }
+    public SelectionReason getSelectionReason() {
+        return selectionReason;
+    }
 
-    public BigDecimal getQualityCheckedQty() { return qualityCheckedQty; }
-    public void setQualityCheckedQty(BigDecimal value) { this.qualityCheckedQty = value; }
+    public void setSelectionReason(SelectionReason value) {
+        this.selectionReason = value;
+    }
 
-    public BigDecimal getQualityGoodQty() { return qualityGoodQty; }
-    public void setQualityGoodQty(BigDecimal value) { this.qualityGoodQty = value; }
+    public BigDecimal getOrderedQty() {
+        return orderedQty;
+    }
 
-    public BigDecimal getTimelinessScore() { return timelinessScore; }
-    public void setTimelinessScore(BigDecimal value) { this.timelinessScore = value; }
+    public void setOrderedQty(BigDecimal value) {
+        this.orderedQty = value;
+    }
 
-    public BigDecimal getCompletenessScore() { return completenessScore; }
-    public void setCompletenessScore(BigDecimal value) { this.completenessScore = value; }
+    public BigDecimal getDeliveredOnTimeQty() {
+        return deliveredOnTimeQty;
+    }
 
-    public BigDecimal getQualityScore() { return qualityScore; }
-    public void setQualityScore(BigDecimal value) { this.qualityScore = value; }
+    public void setDeliveredOnTimeQty(BigDecimal value) {
+        this.deliveredOnTimeQty = value;
+    }
 
-    public Instant getSourceCutoffAt() { return sourceCutoffAt; }
-    public void setSourceCutoffAt(Instant value) { this.sourceCutoffAt = value; }
+    public BigDecimal getFulfilledQty() {
+        return fulfilledQty;
+    }
 
-    public String getSourceHash() { return sourceHash; }
-    public void setSourceHash(String value) { this.sourceHash = value; }
+    public void setFulfilledQty(BigDecimal value) {
+        this.fulfilledQty = value;
+    }
 
+    public BigDecimal getQualityCheckedQty() {
+        return qualityCheckedQty;
+    }
+
+    public void setQualityCheckedQty(BigDecimal value) {
+        this.qualityCheckedQty = value;
+    }
+
+    public BigDecimal getQualityGoodQty() {
+        return qualityGoodQty;
+    }
+
+    public void setQualityGoodQty(BigDecimal value) {
+        this.qualityGoodQty = value;
+    }
+
+    public BigDecimal getTimelinessScore() {
+        return timelinessScore;
+    }
+
+    public void setTimelinessScore(BigDecimal value) {
+        this.timelinessScore = value;
+    }
+
+    public BigDecimal getCompletenessScore() {
+        return completenessScore;
+    }
+
+    public void setCompletenessScore(BigDecimal value) {
+        this.completenessScore = value;
+    }
+
+    public BigDecimal getQualityScore() {
+        return qualityScore;
+    }
+
+    public void setQualityScore(BigDecimal value) {
+        this.qualityScore = value;
+    }
+
+    public Instant getSourceCutoffAt() {
+        return sourceCutoffAt;
+    }
+
+    public void setSourceCutoffAt(Instant value) {
+        this.sourceCutoffAt = value;
+    }
+
+    public String getSourceHash() {
+        return sourceHash;
+    }
+
+    public void setSourceHash(String value) {
+        this.sourceHash = value;
+    }
 }

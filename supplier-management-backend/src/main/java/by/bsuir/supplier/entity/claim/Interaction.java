@@ -1,16 +1,13 @@
 package by.bsuir.supplier.entity.claim;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.supplier.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for interactions. No business decisions belong here. */
 @Entity
@@ -51,31 +48,75 @@ public class Interaction {
 
     public Interaction() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public User getEmployee() { return employee; }
-    public void setEmployee(User value) { this.employee = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public Instant getOccurredAt() { return occurredAt; }
-    public void setOccurredAt(Instant value) { this.occurredAt = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public InteractionChannel getChannel() { return channel; }
-    public void setChannel(InteractionChannel value) { this.channel = value; }
+    public User getEmployee() {
+        return employee;
+    }
 
-    public String getSubject() { return subject; }
-    public void setSubject(String value) { this.subject = value; }
+    public void setEmployee(User value) {
+        this.employee = value;
+    }
 
-    public String getContent() { return content; }
-    public void setContent(String value) { this.content = value; }
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
 
-    public String getOutcome() { return outcome; }
-    public void setOutcome(String value) { this.outcome = value; }
+    public void setOccurredAt(Instant value) {
+        this.occurredAt = value;
+    }
 
-    public Claim getClaim() { return claim; }
-    public void setClaim(Claim value) { this.claim = value; }
+    public InteractionChannel getChannel() {
+        return channel;
+    }
 
+    public void setChannel(InteractionChannel value) {
+        this.channel = value;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public void setSubject(String value) {
+        this.subject = value;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String value) {
+        this.content = value;
+    }
+
+    public String getOutcome() {
+        return outcome;
+    }
+
+    public void setOutcome(String value) {
+        this.outcome = value;
+    }
+
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim value) {
+        this.claim = value;
+    }
 }

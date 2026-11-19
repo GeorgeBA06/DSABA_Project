@@ -1,15 +1,13 @@
 package by.bsuir.supplier.entity.contract;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for contract_versions. No business decisions belong here. */
 @Entity
@@ -68,54 +66,128 @@ public class ContractVersion {
 
     public ContractVersion() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Contract getContract() { return contract; }
-    public void setContract(Contract value) { this.contract = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public Integer getVersionNo() { return versionNo; }
-    public void setVersionNo(Integer value) { this.versionNo = value; }
+    public Contract getContract() {
+        return contract;
+    }
 
-    public String getNumber() { return number; }
-    public void setNumber(String value) { this.number = value; }
+    public void setContract(Contract value) {
+        this.contract = value;
+    }
 
-    public LocalDate getSignedOn() { return signedOn; }
-    public void setSignedOn(LocalDate value) { this.signedOn = value; }
+    public Integer getVersionNo() {
+        return versionNo;
+    }
 
-    public LocalDate getValidFrom() { return validFrom; }
-    public void setValidFrom(LocalDate value) { this.validFrom = value; }
+    public void setVersionNo(Integer value) {
+        this.versionNo = value;
+    }
 
-    public LocalDate getValidTo() { return validTo; }
-    public void setValidTo(LocalDate value) { this.validTo = value; }
+    public String getNumber() {
+        return number;
+    }
 
-    public String getTerms() { return terms; }
-    public void setTerms(String value) { this.terms = value; }
+    public void setNumber(String value) {
+        this.number = value;
+    }
 
-    public String getChangeReason() { return changeReason; }
-    public void setChangeReason(String value) { this.changeReason = value; }
+    public LocalDate getSignedOn() {
+        return signedOn;
+    }
 
-    public VersionState getState() { return state; }
-    public void setState(VersionState value) { this.state = value; }
+    public void setSignedOn(LocalDate value) {
+        this.signedOn = value;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public LocalDate getValidFrom() {
+        return validFrom;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setValidFrom(LocalDate value) {
+        this.validFrom = value;
+    }
 
-    public User getDecidedBy() { return decidedBy; }
-    public void setDecidedBy(User value) { this.decidedBy = value; }
+    public LocalDate getValidTo() {
+        return validTo;
+    }
 
-    public Instant getDecidedAt() { return decidedAt; }
-    public void setDecidedAt(Instant value) { this.decidedAt = value; }
+    public void setValidTo(LocalDate value) {
+        this.validTo = value;
+    }
 
-    public String getDecisionComment() { return decisionComment; }
-    public void setDecisionComment(String value) { this.decisionComment = value; }
+    public String getTerms() {
+        return terms;
+    }
+
+    public void setTerms(String value) {
+        this.terms = value;
+    }
+
+    public String getChangeReason() {
+        return changeReason;
+    }
+
+    public void setChangeReason(String value) {
+        this.changeReason = value;
+    }
+
+    public VersionState getState() {
+        return state;
+    }
+
+    public void setState(VersionState value) {
+        this.state = value;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public User getDecidedBy() {
+        return decidedBy;
+    }
+
+    public void setDecidedBy(User value) {
+        this.decidedBy = value;
+    }
+
+    public Instant getDecidedAt() {
+        return decidedAt;
+    }
+
+    public void setDecidedAt(Instant value) {
+        this.decidedAt = value;
+    }
+
+    public String getDecisionComment() {
+        return decisionComment;
+    }
+
+    public void setDecisionComment(String value) {
+        this.decisionComment = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }

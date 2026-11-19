@@ -1,16 +1,13 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.claim.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.order.*;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for delivery_lines. No business decisions belong here. */
 @Entity
@@ -42,22 +39,51 @@ public class DeliveryLine {
 
     public DeliveryLine() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Delivery getDelivery() { return delivery; }
-    public void setDelivery(Delivery value) { this.delivery = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public OrderVersionLine getOrderVersionLine() { return orderVersionLine; }
-    public void setOrderVersionLine(OrderVersionLine value) { this.orderVersionLine = value; }
+    public Delivery getDelivery() {
+        return delivery;
+    }
 
-    public BigDecimal getQuantity() { return quantity; }
-    public void setQuantity(BigDecimal value) { this.quantity = value; }
+    public void setDelivery(Delivery value) {
+        this.delivery = value;
+    }
 
-    public DeliveryLine getReplacementForLine() { return replacementForLine; }
-    public void setReplacementForLine(DeliveryLine value) { this.replacementForLine = value; }
+    public OrderVersionLine getOrderVersionLine() {
+        return orderVersionLine;
+    }
 
-    public Claim getClaim() { return claim; }
-    public void setClaim(Claim value) { this.claim = value; }
+    public void setOrderVersionLine(OrderVersionLine value) {
+        this.orderVersionLine = value;
+    }
 
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigDecimal value) {
+        this.quantity = value;
+    }
+
+    public DeliveryLine getReplacementForLine() {
+        return replacementForLine;
+    }
+
+    public void setReplacementForLine(DeliveryLine value) {
+        this.replacementForLine = value;
+    }
+
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim value) {
+        this.claim = value;
+    }
 }

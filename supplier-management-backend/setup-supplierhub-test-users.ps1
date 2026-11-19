@@ -38,7 +38,9 @@ function Read-LocalPassword([string]$Prompt) {
         return $plain
     }
     finally {
-        if ($null -ne $secure) { $secure.Dispose() }
+        if ($null -ne $secure) {
+            $secure.Dispose()
+        }
     }
 }
 
@@ -67,9 +69,13 @@ function Find-TestUser([string]$Login, [hashtable]$Headers) {
     for ($index = 0; $index -lt 100; $index++) {
         $result = Invoke-SupplierApi -Method 'GET' -Path "/admin/users?page=$index&size=100" -Headers $Headers
         foreach ($item in @($result.items)) {
-            if ($item.login -eq $Login) { return $item }
+            if ($item.login -eq $Login) {
+                return $item
+            }
         }
-        if ($index + 1 -ge [int]$result.totalPages) { return $null }
+        if ($index + 1 -ge [int]$result.totalPages) {
+            return $null
+        }
     }
     throw "The users listing has more than 100 pages; unable to locate $Login safely."
 }
@@ -133,7 +139,9 @@ function Ensure-TestAccount {
 }
 
 $health = Invoke-RestMethod -Method 'GET' -Uri "$ApiUrl/actuator/health" -ErrorAction Stop
-if ($health.status -ne 'UP') { throw 'Backend is not healthy.' }
+if ($health.status -ne 'UP') {
+    throw 'Backend is not healthy.'
+}
 
 $repo = Join-Path $env:USERPROFILE '.m2\repository\org\springframework\security\spring-security-crypto'
 if (-not (Test-Path $repo)) {
@@ -142,7 +150,9 @@ if (-not (Test-Path $repo)) {
 $jar = Get-ChildItem $repo -Recurse -File -Filter 'spring-security-crypto-*.jar' |
     Where-Object { $_.Name -notmatch 'sources|javadoc' } |
     Sort-Object LastWriteTime -Descending | Select-Object -First 1
-if ($null -eq $jar) { throw "spring-security-crypto.jar not found in $repo" }
+if ($null -eq $jar) {
+    throw "spring-security-crypto.jar not found in $repo"
+}
 # Temporary source helper; no additional project files are required.
 $javaDir = Join-Path ([IO.Path]::GetTempPath()) ('supplierhub-bcrypt-' + [Guid]::NewGuid().ToString('N'))
 [IO.Directory]::CreateDirectory($javaDir) | Out-Null
@@ -175,7 +185,9 @@ Write-Host 'Resetting password for the existing admin in the LOCAL database.'
 $adminPassword = Read-LocalPassword 'New password for admin (hidden)'
 try {
     $hash = ($adminPassword | & java -cp $jar.FullName $javaFile)
-    if ($LASTEXITCODE -ne 0) { throw 'Java BCrypt generation failed.' }
+    if ($LASTEXITCODE -ne 0) {
+        throw 'Java BCrypt generation failed.'
+    }
     $hash = ([string]$hash).Trim()
     if ($hash -notmatch '^\$2[aby]\$12\$[./A-Za-z0-9]{53}$') {
         throw 'Generated password hash has an unexpected format.'
@@ -208,7 +220,9 @@ COMMIT;
 '@
     $sql = $sql.Replace('__HASH__', $hash)
     $sql | & docker exec -i $PostgresContainer psql -X -v ON_ERROR_STOP=1 -U supplier -d supplier_management -f -
-    if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL password reset failed. Please inspect the error above.' }
+    if ($LASTEXITCODE -ne 0) {
+        throw 'PostgreSQL password reset failed. Please inspect the error above.'
+    }
     Write-Host 'Admin password updated, old sessions revoked.' -ForegroundColor Green
 
     $adminTokens = Invoke-SupplierApi -Method 'POST' -Path '/auth/login' -Payload @{

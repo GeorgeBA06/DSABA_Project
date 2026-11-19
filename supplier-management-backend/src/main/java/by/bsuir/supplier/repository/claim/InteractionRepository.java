@@ -1,11 +1,10 @@
 package by.bsuir.supplier.repository.claim;
 
-import java.util.UUID;
+import by.bsuir.supplier.entity.claim.Interaction;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import by.bsuir.supplier.entity.claim.Interaction;
+import java.util.UUID;
 
 /** Type-safe persistence gateway. Business validation belongs to service transactions. */
-public interface InteractionRepository extends JpaRepository<Interaction, UUID> {
-}
+public interface InteractionRepository extends JpaRepository<Interaction, UUID> {}

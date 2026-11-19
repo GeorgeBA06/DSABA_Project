@@ -1,15 +1,13 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for fact_corrections. No business decisions belong here. */
 @Entity
@@ -49,36 +47,80 @@ public class FactCorrection {
 
     public FactCorrection() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String value) { this.reason = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public VersionState getState() { return state; }
-    public void setState(VersionState value) { this.state = value; }
+    public String getReason() {
+        return reason;
+    }
 
-    public LocalDate getEffectiveOn() { return effectiveOn; }
-    public void setEffectiveOn(LocalDate value) { this.effectiveOn = value; }
+    public void setReason(String value) {
+        this.reason = value;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public VersionState getState() {
+        return state;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setState(VersionState value) {
+        this.state = value;
+    }
 
-    public User getDecidedBy() { return decidedBy; }
-    public void setDecidedBy(User value) { this.decidedBy = value; }
+    public LocalDate getEffectiveOn() {
+        return effectiveOn;
+    }
 
-    public Instant getDecidedAt() { return decidedAt; }
-    public void setDecidedAt(Instant value) { this.decidedAt = value; }
+    public void setEffectiveOn(LocalDate value) {
+        this.effectiveOn = value;
+    }
 
-    public String getDecisionComment() { return decisionComment; }
-    public void setDecisionComment(String value) { this.decisionComment = value; }
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public User getDecidedBy() {
+        return decidedBy;
+    }
+
+    public void setDecidedBy(User value) {
+        this.decidedBy = value;
+    }
+
+    public Instant getDecidedAt() {
+        return decidedAt;
+    }
+
+    public void setDecidedAt(Instant value) {
+        this.decidedAt = value;
+    }
+
+    public String getDecisionComment() {
+        return decisionComment;
+    }
+
+    public void setDecisionComment(String value) {
+        this.decisionComment = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }

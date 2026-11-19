@@ -1,15 +1,11 @@
 package by.bsuir.supplier.entity.order;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.catalog.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.util.UUID;
 
 /** Persisted aggregate/data record for order_lines. No business decisions belong here. */
 @Entity
@@ -33,16 +29,35 @@ public class OrderLine {
 
     public OrderLine() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public PurchaseOrder getOrder() { return order; }
-    public void setOrder(PurchaseOrder value) { this.order = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public Integer getLineNo() { return lineNo; }
-    public void setLineNo(Integer value) { this.lineNo = value; }
+    public PurchaseOrder getOrder() {
+        return order;
+    }
 
-    public Product getProduct() { return product; }
-    public void setProduct(Product value) { this.product = value; }
+    public void setOrder(PurchaseOrder value) {
+        this.order = value;
+    }
 
+    public Integer getLineNo() {
+        return lineNo;
+    }
+
+    public void setLineNo(Integer value) {
+        this.lineNo = value;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product value) {
+        this.product = value;
+    }
 }

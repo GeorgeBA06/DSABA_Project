@@ -1,17 +1,14 @@
 package by.bsuir.supplier.dto.response;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.util.UUID;
-
 import by.bsuir.supplier.entity.enums.UserStatus;
 
+import java.time.Instant;
+import java.util.UUID;
+
 public record UserView(
-    UUID id,
-    String login,
-    String displayName,
-    UserStatus status,
-    Instant createdAt,
-    Instant updatedAt
-) {}
+        UUID id,
+        String login,
+        String displayName,
+        UserStatus status,
+        Instant createdAt,
+        Instant updatedAt) {}

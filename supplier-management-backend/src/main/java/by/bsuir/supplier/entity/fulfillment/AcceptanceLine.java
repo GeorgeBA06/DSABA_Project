@@ -1,14 +1,11 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for acceptance_lines. No business decisions belong here. */
 @Entity
@@ -41,25 +38,59 @@ public class AcceptanceLine {
 
     public AcceptanceLine() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public AcceptanceDocument getAcceptanceDocument() { return acceptanceDocument; }
-    public void setAcceptanceDocument(AcceptanceDocument value) { this.acceptanceDocument = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public DeliveryLine getDeliveryLine() { return deliveryLine; }
-    public void setDeliveryLine(DeliveryLine value) { this.deliveryLine = value; }
+    public AcceptanceDocument getAcceptanceDocument() {
+        return acceptanceDocument;
+    }
 
-    public BigDecimal getAcceptedQty() { return acceptedQty; }
-    public void setAcceptedQty(BigDecimal value) { this.acceptedQty = value; }
+    public void setAcceptanceDocument(AcceptanceDocument value) {
+        this.acceptanceDocument = value;
+    }
 
-    public BigDecimal getQualityRejectedQty() { return qualityRejectedQty; }
-    public void setQualityRejectedQty(BigDecimal value) { this.qualityRejectedQty = value; }
+    public DeliveryLine getDeliveryLine() {
+        return deliveryLine;
+    }
 
-    public BigDecimal getOtherRejectedQty() { return otherRejectedQty; }
-    public void setOtherRejectedQty(BigDecimal value) { this.otherRejectedQty = value; }
+    public void setDeliveryLine(DeliveryLine value) {
+        this.deliveryLine = value;
+    }
 
-    public String getOtherReason() { return otherReason; }
-    public void setOtherReason(String value) { this.otherReason = value; }
+    public BigDecimal getAcceptedQty() {
+        return acceptedQty;
+    }
 
+    public void setAcceptedQty(BigDecimal value) {
+        this.acceptedQty = value;
+    }
+
+    public BigDecimal getQualityRejectedQty() {
+        return qualityRejectedQty;
+    }
+
+    public void setQualityRejectedQty(BigDecimal value) {
+        this.qualityRejectedQty = value;
+    }
+
+    public BigDecimal getOtherRejectedQty() {
+        return otherRejectedQty;
+    }
+
+    public void setOtherRejectedQty(BigDecimal value) {
+        this.otherRejectedQty = value;
+    }
+
+    public String getOtherReason() {
+        return otherReason;
+    }
+
+    public void setOtherReason(String value) {
+        this.otherReason = value;
+    }
 }

@@ -1,16 +1,14 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.order.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for supplier_returns. No business decisions belong here. */
 @Entity
@@ -56,34 +54,83 @@ public class SupplierReturn {
 
     public SupplierReturn() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public PurchaseOrder getOrder() { return order; }
-    public void setOrder(PurchaseOrder value) { this.order = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public LocalDate getReturnedOn() { return returnedOn; }
-    public void setReturnedOn(LocalDate value) { this.returnedOn = value; }
+    public PurchaseOrder getOrder() {
+        return order;
+    }
 
-    public ReturnState getState() { return state; }
-    public void setState(ReturnState value) { this.state = value; }
+    public void setOrder(PurchaseOrder value) {
+        this.order = value;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String value) { this.reason = value; }
+    public LocalDate getReturnedOn() {
+        return returnedOn;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public void setReturnedOn(LocalDate value) {
+        this.returnedOn = value;
+    }
 
-    public User getApprovedBy() { return approvedBy; }
-    public void setApprovedBy(User value) { this.approvedBy = value; }
+    public ReturnState getState() {
+        return state;
+    }
 
-    public Instant getApprovedAt() { return approvedAt; }
-    public void setApprovedAt(Instant value) { this.approvedAt = value; }
+    public void setState(ReturnState value) {
+        this.state = value;
+    }
 
-    public SupplierReturn getSupersedes() { return supersedes; }
-    public void setSupersedes(SupplierReturn value) { this.supersedes = value; }
+    public String getReason() {
+        return reason;
+    }
 
-    public FactCorrection getCorrection() { return correction; }
-    public void setCorrection(FactCorrection value) { this.correction = value; }
+    public void setReason(String value) {
+        this.reason = value;
+    }
 
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public User getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(User value) {
+        this.approvedBy = value;
+    }
+
+    public Instant getApprovedAt() {
+        return approvedAt;
+    }
+
+    public void setApprovedAt(Instant value) {
+        this.approvedAt = value;
+    }
+
+    public SupplierReturn getSupersedes() {
+        return supersedes;
+    }
+
+    public void setSupersedes(SupplierReturn value) {
+        this.supersedes = value;
+    }
+
+    public FactCorrection getCorrection() {
+        return correction;
+    }
+
+    public void setCorrection(FactCorrection value) {
+        this.correction = value;
+    }
 }

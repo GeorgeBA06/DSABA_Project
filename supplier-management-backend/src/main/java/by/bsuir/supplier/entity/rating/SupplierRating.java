@@ -1,16 +1,19 @@
 package by.bsuir.supplier.entity.rating;
 
+import by.bsuir.supplier.entity.catalog.*;
+import by.bsuir.supplier.entity.enums.*;
+import by.bsuir.supplier.entity.supplier.*;
+
 import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
+
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
-import by.bsuir.supplier.entity.catalog.*;
-import by.bsuir.supplier.entity.supplier.*;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.Map;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for supplier_ratings. No business decisions belong here. */
 @Entity
@@ -47,7 +50,7 @@ public class SupplierRating {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "rules_snapshot", nullable = false, columnDefinition = "jsonb")
-    private Map<String,Object> rulesSnapshot;
+    private Map<String, Object> rulesSnapshot;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "expert_assessment_id", nullable = true)
@@ -78,7 +81,7 @@ public class SupplierRating {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "missing_reasons", nullable = true, columnDefinition = "jsonb")
-    private Map<String,Object> missingReasons;
+    private Map<String, Object> missingReasons;
 
     @Column(name = "order_count", nullable = false)
     private Integer orderCount;
@@ -95,75 +98,184 @@ public class SupplierRating {
 
     public SupplierRating() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public RatingScope getScope() { return scope; }
-    public void setScope(RatingScope value) { this.scope = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public ProductCategory getCategory() { return category; }
-    public void setCategory(ProductCategory value) { this.category = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public LocalDate getPeriodStart() { return periodStart; }
-    public void setPeriodStart(LocalDate value) { this.periodStart = value; }
+    public RatingScope getScope() {
+        return scope;
+    }
 
-    public LocalDate getPeriodEnd() { return periodEnd; }
-    public void setPeriodEnd(LocalDate value) { this.periodEnd = value; }
+    public void setScope(RatingScope value) {
+        this.scope = value;
+    }
 
-    public Instant getAsOfAt() { return asOfAt; }
-    public void setAsOfAt(Instant value) { this.asOfAt = value; }
+    public ProductCategory getCategory() {
+        return category;
+    }
 
-    public String getMethodVersion() { return methodVersion; }
-    public void setMethodVersion(String value) { this.methodVersion = value; }
+    public void setCategory(ProductCategory value) {
+        this.category = value;
+    }
 
-    public Map<String,Object> getRulesSnapshot() { return rulesSnapshot; }
-    public void setRulesSnapshot(Map<String,Object> value) { this.rulesSnapshot = value; }
+    public LocalDate getPeriodStart() {
+        return periodStart;
+    }
 
-    public ExpertAssessment getExpertAssessment() { return expertAssessment; }
-    public void setExpertAssessment(ExpertAssessment value) { this.expertAssessment = value; }
+    public void setPeriodStart(LocalDate value) {
+        this.periodStart = value;
+    }
 
-    public BigDecimal getTimelinessScore() { return timelinessScore; }
-    public void setTimelinessScore(BigDecimal value) { this.timelinessScore = value; }
+    public LocalDate getPeriodEnd() {
+        return periodEnd;
+    }
 
-    public BigDecimal getCompletenessScore() { return completenessScore; }
-    public void setCompletenessScore(BigDecimal value) { this.completenessScore = value; }
+    public void setPeriodEnd(LocalDate value) {
+        this.periodEnd = value;
+    }
 
-    public BigDecimal getQualityScore() { return qualityScore; }
-    public void setQualityScore(BigDecimal value) { this.qualityScore = value; }
+    public Instant getAsOfAt() {
+        return asOfAt;
+    }
 
-    public BigDecimal getInteractionScore() { return interactionScore; }
-    public void setInteractionScore(BigDecimal value) { this.interactionScore = value; }
+    public void setAsOfAt(Instant value) {
+        this.asOfAt = value;
+    }
 
-    public BigDecimal getTotalScore() { return totalScore; }
-    public void setTotalScore(BigDecimal value) { this.totalScore = value; }
+    public String getMethodVersion() {
+        return methodVersion;
+    }
 
-    public RatingBand getBand() { return band; }
-    public void setBand(RatingBand value) { this.band = value; }
+    public void setMethodVersion(String value) {
+        this.methodVersion = value;
+    }
 
-    public RatingState getState() { return state; }
-    public void setState(RatingState value) { this.state = value; }
+    public Map<String, Object> getRulesSnapshot() {
+        return rulesSnapshot;
+    }
 
-    public Map<String,Object> getMissingReasons() { return missingReasons; }
-    public void setMissingReasons(Map<String,Object> value) { this.missingReasons = value; }
+    public void setRulesSnapshot(Map<String, Object> value) {
+        this.rulesSnapshot = value;
+    }
 
-    public Integer getOrderCount() { return orderCount; }
-    public void setOrderCount(Integer value) { this.orderCount = value; }
+    public ExpertAssessment getExpertAssessment() {
+        return expertAssessment;
+    }
 
-    public Integer getLineCount() { return lineCount; }
-    public void setLineCount(Integer value) { this.lineCount = value; }
+    public void setExpertAssessment(ExpertAssessment value) {
+        this.expertAssessment = value;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public BigDecimal getTimelinessScore() {
+        return timelinessScore;
+    }
 
-    public SupplierRating getSupersedes() { return supersedes; }
-    public void setSupersedes(SupplierRating value) { this.supersedes = value; }
+    public void setTimelinessScore(BigDecimal value) {
+        this.timelinessScore = value;
+    }
+
+    public BigDecimal getCompletenessScore() {
+        return completenessScore;
+    }
+
+    public void setCompletenessScore(BigDecimal value) {
+        this.completenessScore = value;
+    }
+
+    public BigDecimal getQualityScore() {
+        return qualityScore;
+    }
+
+    public void setQualityScore(BigDecimal value) {
+        this.qualityScore = value;
+    }
+
+    public BigDecimal getInteractionScore() {
+        return interactionScore;
+    }
+
+    public void setInteractionScore(BigDecimal value) {
+        this.interactionScore = value;
+    }
+
+    public BigDecimal getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(BigDecimal value) {
+        this.totalScore = value;
+    }
+
+    public RatingBand getBand() {
+        return band;
+    }
+
+    public void setBand(RatingBand value) {
+        this.band = value;
+    }
+
+    public RatingState getState() {
+        return state;
+    }
+
+    public void setState(RatingState value) {
+        this.state = value;
+    }
+
+    public Map<String, Object> getMissingReasons() {
+        return missingReasons;
+    }
+
+    public void setMissingReasons(Map<String, Object> value) {
+        this.missingReasons = value;
+    }
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Integer value) {
+        this.orderCount = value;
+    }
+
+    public Integer getLineCount() {
+        return lineCount;
+    }
+
+    public void setLineCount(Integer value) {
+        this.lineCount = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public SupplierRating getSupersedes() {
+        return supersedes;
+    }
+
+    public void setSupersedes(SupplierRating value) {
+        this.supersedes = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }

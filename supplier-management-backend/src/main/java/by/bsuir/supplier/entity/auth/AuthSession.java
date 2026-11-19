@@ -1,14 +1,11 @@
 package by.bsuir.supplier.entity.auth;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for auth_sessions. No business decisions belong here. */
 @Entity
@@ -47,36 +44,80 @@ public class AuthSession {
 
     public AuthSession() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User value) { this.user = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public String getRefreshTokenHash() { return refreshTokenHash; }
-    public void setRefreshTokenHash(String value) { this.refreshTokenHash = value; }
+    public User getUser() {
+        return user;
+    }
 
-    public Long getTokenGeneration() { return tokenGeneration; }
-    public void setTokenGeneration(Long value) { this.tokenGeneration = value; }
+    public void setUser(User value) {
+        this.user = value;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public String getRefreshTokenHash() {
+        return refreshTokenHash;
+    }
 
-    public Instant getExpiresAt() { return expiresAt; }
-    public void setExpiresAt(Instant value) { this.expiresAt = value; }
+    public void setRefreshTokenHash(String value) {
+        this.refreshTokenHash = value;
+    }
 
-    public Instant getRevokedAt() { return revokedAt; }
-    public void setRevokedAt(Instant value) { this.revokedAt = value; }
+    public Long getTokenGeneration() {
+        return tokenGeneration;
+    }
 
-    public Instant getRotatedAt() { return rotatedAt; }
-    public void setRotatedAt(Instant value) { this.rotatedAt = value; }
+    public void setTokenGeneration(Long value) {
+        this.tokenGeneration = value;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public Instant getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(Instant value) {
+        this.expiresAt = value;
+    }
+
+    public Instant getRevokedAt() {
+        return revokedAt;
+    }
+
+    public void setRevokedAt(Instant value) {
+        this.revokedAt = value;
+    }
+
+    public Instant getRotatedAt() {
+        return rotatedAt;
+    }
+
+    public void setRotatedAt(Instant value) {
+        this.rotatedAt = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }

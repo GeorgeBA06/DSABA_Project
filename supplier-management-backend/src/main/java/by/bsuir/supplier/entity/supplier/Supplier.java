@@ -1,15 +1,12 @@
 package by.bsuir.supplier.entity.supplier;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for suppliers. No business decisions belong here. */
 @Entity
@@ -58,41 +55,101 @@ public class Supplier {
 
     public Supplier() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String value) { this.name = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public String getContactName() { return contactName; }
-    public void setContactName(String value) { this.contactName = value; }
+    public String getName() {
+        return name;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String value) { this.email = value; }
+    public void setName(String value) {
+        this.name = value;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String value) { this.phone = value; }
+    public String getContactName() {
+        return contactName;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String value) { this.address = value; }
+    public void setContactName(String value) {
+        this.contactName = value;
+    }
 
-    public String getRegistrationNumber() { return registrationNumber; }
-    public void setRegistrationNumber(String value) { this.registrationNumber = value; }
+    public String getEmail() {
+        return email;
+    }
 
-    public SupplierStatus getStatus() { return status; }
-    public void setStatus(SupplierStatus value) { this.status = value; }
+    public void setEmail(String value) {
+        this.email = value;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setPhone(String value) {
+        this.phone = value;
+    }
 
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant value) { this.updatedAt = value; }
+    public String getAddress() {
+        return address;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public void setAddress(String value) {
+        this.address = value;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void setRegistrationNumber(String value) {
+        this.registrationNumber = value;
+    }
+
+    public SupplierStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(SupplierStatus value) {
+        this.status = value;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant value) {
+        this.updatedAt = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
@@ -101,6 +158,7 @@ public class Supplier {
     }
 
     @PreUpdate
-    private void preUpdate() { updatedAt = Instant.now(); }
-
+    private void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

@@ -4,6 +4,7 @@
 This is a *static* structural/contract regression check. It is NOT a replacement
 for the Maven build, Jackson serialization tests, or HTTP/PostgreSQL integration.
 """
+
 from pathlib import Path
 import json
 import re
@@ -23,7 +24,11 @@ assert not (base / "dto/Views.java").exists()
 for path in requests + responses:
     source = path.read_text(encoding="utf-8")
     declarations = re.findall(r"\bpublic record\s+(\w+)\s*\(", source)
-    assert declarations == [path.stem], ("Record must match filename", path, declarations)
+    assert declarations == [path.stem], (
+        "Record must match filename",
+        path,
+        declarations,
+    )
     assert source.startswith("package by.bsuir.supplier.dto."), path
     assert "@Entity" not in source, path
 
@@ -38,7 +43,9 @@ for path in base.rglob("*.java"):
 
 baseline = json.loads((root / "docs/OPENAPI_CONTRACT_BASELINE_STAGE4.json").read_text())
 current = json.loads((root / "docs/openapi.json").read_text())
-assert baseline == current, "OpenAPI changed; inspect potential frontend compatibility break"
+assert baseline == current, (
+    "OpenAPI changed; inspect potential frontend compatibility break"
+)
 operations = sum(len(verbs) for verbs in current["paths"].values())
 assert operations == 97, operations
 

@@ -1,14 +1,11 @@
 package by.bsuir.supplier.entity.catalog;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for products. No business decisions belong here. */
 @Entity
@@ -48,32 +45,77 @@ public class Product {
 
     public Product() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getSku() { return sku; }
-    public void setSku(String value) { this.sku = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public String getName() { return name; }
-    public void setName(String value) { this.name = value; }
+    public String getSku() {
+        return sku;
+    }
 
-    public ProductCategory getCategory() { return category; }
-    public void setCategory(ProductCategory value) { this.category = value; }
+    public void setSku(String value) {
+        this.sku = value;
+    }
 
-    public Unit getUnit() { return unit; }
-    public void setUnit(Unit value) { this.unit = value; }
+    public String getName() {
+        return name;
+    }
 
-    public Boolean getActive() { return active; }
-    public void setActive(Boolean value) { this.active = value; }
+    public void setName(String value) {
+        this.name = value;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public ProductCategory getCategory() {
+        return category;
+    }
 
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant value) { this.updatedAt = value; }
+    public void setCategory(ProductCategory value) {
+        this.category = value;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public Unit getUnit() {
+        return unit;
+    }
+
+    public void setUnit(Unit value) {
+        this.unit = value;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean value) {
+        this.active = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant value) {
+        this.updatedAt = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
@@ -82,6 +124,7 @@ public class Product {
     }
 
     @PreUpdate
-    private void preUpdate() { updatedAt = Instant.now(); }
-
+    private void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

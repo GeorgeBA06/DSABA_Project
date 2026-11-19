@@ -1,16 +1,14 @@
 package by.bsuir.supplier.entity.rating;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.supplier.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for expert_assessments. No business decisions belong here. */
 @Entity
@@ -67,51 +65,120 @@ public class ExpertAssessment {
 
     public ExpertAssessment() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public LocalDate getPeriodStart() { return periodStart; }
-    public void setPeriodStart(LocalDate value) { this.periodStart = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public LocalDate getPeriodEnd() { return periodEnd; }
-    public void setPeriodEnd(LocalDate value) { this.periodEnd = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public LocalDate getApplicableFrom() { return applicableFrom; }
-    public void setApplicableFrom(LocalDate value) { this.applicableFrom = value; }
+    public LocalDate getPeriodStart() {
+        return periodStart;
+    }
 
-    public LocalDate getApplicableTo() { return applicableTo; }
-    public void setApplicableTo(LocalDate value) { this.applicableTo = value; }
+    public void setPeriodStart(LocalDate value) {
+        this.periodStart = value;
+    }
 
-    public Integer getScore() { return score; }
-    public void setScore(Integer value) { this.score = value; }
+    public LocalDate getPeriodEnd() {
+        return periodEnd;
+    }
 
-    public String getJustification() { return justification; }
-    public void setJustification(String value) { this.justification = value; }
+    public void setPeriodEnd(LocalDate value) {
+        this.periodEnd = value;
+    }
 
-    public VersionState getState() { return state; }
-    public void setState(VersionState value) { this.state = value; }
+    public LocalDate getApplicableFrom() {
+        return applicableFrom;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public void setApplicableFrom(LocalDate value) {
+        this.applicableFrom = value;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public LocalDate getApplicableTo() {
+        return applicableTo;
+    }
 
-    public User getApprovedBy() { return approvedBy; }
-    public void setApprovedBy(User value) { this.approvedBy = value; }
+    public void setApplicableTo(LocalDate value) {
+        this.applicableTo = value;
+    }
 
-    public Instant getApprovedAt() { return approvedAt; }
-    public void setApprovedAt(Instant value) { this.approvedAt = value; }
+    public Integer getScore() {
+        return score;
+    }
 
-    public ExpertAssessment getSupersedes() { return supersedes; }
-    public void setSupersedes(ExpertAssessment value) { this.supersedes = value; }
+    public void setScore(Integer value) {
+        this.score = value;
+    }
+
+    public String getJustification() {
+        return justification;
+    }
+
+    public void setJustification(String value) {
+        this.justification = value;
+    }
+
+    public VersionState getState() {
+        return state;
+    }
+
+    public void setState(VersionState value) {
+        this.state = value;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public User getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(User value) {
+        this.approvedBy = value;
+    }
+
+    public Instant getApprovedAt() {
+        return approvedAt;
+    }
+
+    public void setApprovedAt(Instant value) {
+        this.approvedAt = value;
+    }
+
+    public ExpertAssessment getSupersedes() {
+        return supersedes;
+    }
+
+    public void setSupersedes(ExpertAssessment value) {
+        this.supersedes = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }

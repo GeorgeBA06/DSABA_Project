@@ -1,17 +1,14 @@
 package by.bsuir.supplier.dto.response;
 
-import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.UUID;
 
 public record ProductView(
-    UUID id,
-    String sku,
-    String name,
-    UUID categoryId,
-    UUID unitId,
-    Boolean active,
-    Instant createdAt,
-    Instant updatedAt
-) {}
+        UUID id,
+        String sku,
+        String name,
+        UUID categoryId,
+        UUID unitId,
+        Boolean active,
+        Instant createdAt,
+        Instant updatedAt) {}

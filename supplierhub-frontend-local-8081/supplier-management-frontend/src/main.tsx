@@ -4,4 +4,8 @@ import App from './App';
 import './styles.css';
 const element = document.getElementById('root');
 if (!element) throw new Error('Не найден элемент приложения');
-createRoot(element).render(<React.StrictMode><App/></React.StrictMode>);
+createRoot(element).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);

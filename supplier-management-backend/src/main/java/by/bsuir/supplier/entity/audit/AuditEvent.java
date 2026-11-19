@@ -1,15 +1,16 @@
 package by.bsuir.supplier.entity.audit;
 
+import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
 import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
+
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
-import by.bsuir.supplier.entity.auth.*;
+
+import java.time.Instant;
+import java.util.Map;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for audit_events. No business decisions belong here. */
 @Entity
@@ -42,11 +43,11 @@ public class AuditEvent {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "before_data", nullable = true, columnDefinition = "jsonb")
-    private Map<String,Object> beforeData;
+    private Map<String, Object> beforeData;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "after_data", nullable = true, columnDefinition = "jsonb")
-    private Map<String,Object> afterData;
+    private Map<String, Object> afterData;
 
     @Column(name = "reason", nullable = true, columnDefinition = "text")
     private String reason;
@@ -56,37 +57,91 @@ public class AuditEvent {
 
     public AuditEvent() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public User getActor() { return actor; }
-    public void setActor(User value) { this.actor = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public Instant getOccurredAt() { return occurredAt; }
-    public void setOccurredAt(Instant value) { this.occurredAt = value; }
+    public User getActor() {
+        return actor;
+    }
 
-    public AuditCategory getCategory() { return category; }
-    public void setCategory(AuditCategory value) { this.category = value; }
+    public void setActor(User value) {
+        this.actor = value;
+    }
 
-    public String getAction() { return action; }
-    public void setAction(String value) { this.action = value; }
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
 
-    public String getEntityType() { return entityType; }
-    public void setEntityType(String value) { this.entityType = value; }
+    public void setOccurredAt(Instant value) {
+        this.occurredAt = value;
+    }
 
-    public UUID getEntityId() { return entityId; }
-    public void setEntityId(UUID value) { this.entityId = value; }
+    public AuditCategory getCategory() {
+        return category;
+    }
 
-    public Map<String,Object> getBeforeData() { return beforeData; }
-    public void setBeforeData(Map<String,Object> value) { this.beforeData = value; }
+    public void setCategory(AuditCategory value) {
+        this.category = value;
+    }
 
-    public Map<String,Object> getAfterData() { return afterData; }
-    public void setAfterData(Map<String,Object> value) { this.afterData = value; }
+    public String getAction() {
+        return action;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String value) { this.reason = value; }
+    public void setAction(String value) {
+        this.action = value;
+    }
 
-    public UUID getCorrelationId() { return correlationId; }
-    public void setCorrelationId(UUID value) { this.correlationId = value; }
+    public String getEntityType() {
+        return entityType;
+    }
 
+    public void setEntityType(String value) {
+        this.entityType = value;
+    }
+
+    public UUID getEntityId() {
+        return entityId;
+    }
+
+    public void setEntityId(UUID value) {
+        this.entityId = value;
+    }
+
+    public Map<String, Object> getBeforeData() {
+        return beforeData;
+    }
+
+    public void setBeforeData(Map<String, Object> value) {
+        this.beforeData = value;
+    }
+
+    public Map<String, Object> getAfterData() {
+        return afterData;
+    }
+
+    public void setAfterData(Map<String, Object> value) {
+        this.afterData = value;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String value) {
+        this.reason = value;
+    }
+
+    public UUID getCorrelationId() {
+        return correlationId;
+    }
+
+    public void setCorrelationId(UUID value) {
+        this.correlationId = value;
+    }
 }

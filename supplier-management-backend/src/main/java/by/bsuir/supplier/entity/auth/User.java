@@ -1,14 +1,11 @@
 package by.bsuir.supplier.entity.auth;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for users. No business decisions belong here. */
 @Entity
@@ -50,35 +47,85 @@ public class User {
 
     public User() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getLogin() { return login; }
-    public void setLogin(String value) { this.login = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public String getPasswordHash() { return passwordHash; }
-    public void setPasswordHash(String value) { this.passwordHash = value; }
+    public String getLogin() {
+        return login;
+    }
 
-    public String getDisplayName() { return displayName; }
-    public void setDisplayName(String value) { this.displayName = value; }
+    public void setLogin(String value) {
+        this.login = value;
+    }
 
-    public UserStatus getStatus() { return status; }
-    public void setStatus(UserStatus value) { this.status = value; }
+    public String getPasswordHash() {
+        return passwordHash;
+    }
 
-    public Integer getFailedLoginCount() { return failedLoginCount; }
-    public void setFailedLoginCount(Integer value) { this.failedLoginCount = value; }
+    public void setPasswordHash(String value) {
+        this.passwordHash = value;
+    }
 
-    public Instant getLockedUntil() { return lockedUntil; }
-    public void setLockedUntil(Instant value) { this.lockedUntil = value; }
+    public String getDisplayName() {
+        return displayName;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setDisplayName(String value) {
+        this.displayName = value;
+    }
 
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant value) { this.updatedAt = value; }
+    public UserStatus getStatus() {
+        return status;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public void setStatus(UserStatus value) {
+        this.status = value;
+    }
+
+    public Integer getFailedLoginCount() {
+        return failedLoginCount;
+    }
+
+    public void setFailedLoginCount(Integer value) {
+        this.failedLoginCount = value;
+    }
+
+    public Instant getLockedUntil() {
+        return lockedUntil;
+    }
+
+    public void setLockedUntil(Instant value) {
+        this.lockedUntil = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant value) {
+        this.updatedAt = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
@@ -87,6 +134,7 @@ public class User {
     }
 
     @PreUpdate
-    private void preUpdate() { updatedAt = Instant.now(); }
-
+    private void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

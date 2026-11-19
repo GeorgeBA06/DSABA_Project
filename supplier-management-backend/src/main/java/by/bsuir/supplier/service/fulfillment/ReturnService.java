@@ -1,17 +1,5 @@
 package by.bsuir.supplier.service.fulfillment;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import by.bsuir.supplier.entity.auth.User;
 import by.bsuir.supplier.entity.enums.FactState;
 import by.bsuir.supplier.entity.enums.OrderState;
@@ -26,6 +14,18 @@ import by.bsuir.supplier.repository.order.PurchaseOrderRepository;
 import by.bsuir.supplier.service.auth.ActorAccess;
 import by.bsuir.supplier.service.common.*;
 
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 @Service
 public class ReturnService {
 
@@ -38,13 +38,13 @@ public class ReturnService {
     private final AuditTrail audit;
 
     public ReturnService(
-        ActorAccess access,
-        PurchaseOrderRepository orders,
-        SupplierReturnRepository returns,
-        SupplierReturnLineRepository lines,
-        AcceptanceLineRepository acceptances,
-        FulfillmentLedger ledger,
-        AuditTrail audit) {
+            ActorAccess access,
+            PurchaseOrderRepository orders,
+            SupplierReturnRepository returns,
+            SupplierReturnLineRepository lines,
+            AcceptanceLineRepository acceptances,
+            FulfillmentLedger ledger,
+            AuditTrail audit) {
 
         this.access = access;
         this.orders = orders;
@@ -56,38 +56,29 @@ public class ReturnService {
     }
 
     public record ReturnItem(
-        UUID acceptanceLineId,
-        BigDecimal quantity,
-        String defectDescription) {
-    }
+            UUID acceptanceLineId, BigDecimal quantity, String defectDescription) {}
 
     @Transactional
     public SupplierReturn create(
-        UUID actorId,
-        UUID orderId,
-        LocalDate returnedOn,
-        String reason,
-        List<ReturnItem> items) {
+            UUID actorId,
+            UUID orderId,
+            LocalDate returnedOn,
+            String reason,
+            List<ReturnItem> items) {
 
-        User actor = access.requireRole(
-            actorId,
-            RoleCode.PROCUREMENT_SPECIALIST,
-            RoleCode.PROCUREMENT_MANAGER
-        );
+        User actor =
+                access.requireRole(
+                        actorId, RoleCode.PROCUREMENT_SPECIALIST, RoleCode.PROCUREMENT_MANAGER);
 
         PurchaseOrder order = locked(orderId);
 
-        Rules.require(
-            order.getCurrentApprovedVersion() != null,
-            "Заказ не согласован"
-        );
+        Rules.require(order.getCurrentApprovedVersion() != null, "Заказ не согласован");
 
         Rules.present(returnedOn, "Дата возврата");
 
         Rules.require(
-            !returnedOn.isAfter(LocalDate.now(ZoneId.of("Europe/Minsk"))),
-            "Дата возврата в будущем"
-        );
+                !returnedOn.isAfter(LocalDate.now(ZoneId.of("Europe/Minsk"))),
+                "Дата возврата в будущем");
 
         Rules.notEmpty(items, "Позиции возврата");
 
@@ -105,55 +96,33 @@ public class ReturnService {
             Rules.present(item, "Позиция возврата");
             Rules.positive(item.quantity(), "Количество возврата");
 
-            AcceptanceLine acceptance = acceptances.findById(
-                item.acceptanceLineId()
-            ).orElseThrow(() ->
-                new BusinessException("Приёмка не найдена"));
+            AcceptanceLine acceptance =
+                    acceptances
+                            .findById(item.acceptanceLineId())
+                            .orElseThrow(() -> new BusinessException("Приёмка не найдена"));
 
             Rules.require(
-                acceptance.getAcceptanceDocument().getState()
-                    == FactState.CONFIRMED,
-                "Нет подтверждённой приёмки"
-            );
+                    acceptance.getAcceptanceDocument().getState() == FactState.CONFIRMED,
+                    "Нет подтверждённой приёмки");
 
             Rules.require(
-                !returnedOn.isBefore(
-                    acceptance.getAcceptanceDocument().getInspectedOn()
-                ),
-                "Возврат не может быть раньше приёмки"
-            );
+                    !returnedOn.isBefore(acceptance.getAcceptanceDocument().getInspectedOn()),
+                    "Возврат не может быть раньше приёмки");
 
             Rules.require(
-                acceptance.getDeliveryLine()
-                    .getDelivery()
-                    .getOrder()
-                    .getId()
-                    .equals(orderId),
-                "Строка другого заказа"
-            );
+                    acceptance.getDeliveryLine().getDelivery().getOrder().getId().equals(orderId),
+                    "Строка другого заказа");
 
             SupplierReturnLine l = new SupplierReturnLine();
             l.setSupplierReturn(r);
             l.setAcceptanceLine(acceptance);
             l.setQuantity(item.quantity());
-            l.setDefectDescription(
-                Rules.text(
-                    item.defectDescription(),
-                    "Описание дефекта"
-                )
-            );
+            l.setDefectDescription(Rules.text(item.defectDescription(), "Описание дефекта"));
 
             lines.save(l);
         }
 
-        audit.record(
-            actor,
-            "RETURN_CREATED",
-            r,
-            "SupplierReturn",
-            r.getId(),
-            reason
-        );
+        audit.record(actor, "RETURN_CREATED", r, "SupplierReturn", r.getId(), reason);
 
         return r;
     }
@@ -161,111 +130,73 @@ public class ReturnService {
     @Transactional
     public SupplierReturn submit(UUID actorId, UUID returnId) {
 
-        User actor = access.requireRole(
-            actorId,
-            RoleCode.PROCUREMENT_SPECIALIST,
-            RoleCode.PROCUREMENT_MANAGER
-        );
+        User actor =
+                access.requireRole(
+                        actorId, RoleCode.PROCUREMENT_SPECIALIST, RoleCode.PROCUREMENT_MANAGER);
 
-        SupplierReturn r = returns.findById(returnId)
-            .orElseThrow(() ->
-                new BusinessException("Возврат не найден"));
+        SupplierReturn r =
+                returns.findById(returnId)
+                        .orElseThrow(() -> new BusinessException("Возврат не найден"));
 
         locked(r.getOrder().getId());
 
-        Rules.require(
-            r.getState() == ReturnState.DRAFT,
-            "Возврат уже отправлен"
-        );
+        Rules.require(r.getState() == ReturnState.DRAFT, "Возврат уже отправлен");
 
-        Rules.notEmpty(
-            lines.findBySupplierReturn_Id(returnId),
-            "Строки возврата"
-        );
+        Rules.notEmpty(lines.findBySupplierReturn_Id(returnId), "Строки возврата");
 
         r.setState(ReturnState.PENDING);
 
-        audit.record(
-            actor,
-            "RETURN_SUBMITTED",
-            r,
-            "SupplierReturn",
-            r.getId(),
-            null
-        );
+        audit.record(actor, "RETURN_SUBMITTED", r, "SupplierReturn", r.getId(), null);
 
         return r;
     }
 
     @Transactional
-    public SupplierReturn decide(
-        UUID managerId,
-        UUID returnId,
-        boolean approve) {
+    public SupplierReturn decide(UUID managerId, UUID returnId, boolean approve) {
 
-        User manager = access.requireRole(
-            managerId,
-            RoleCode.PROCUREMENT_MANAGER
-        );
+        User manager = access.requireRole(managerId, RoleCode.PROCUREMENT_MANAGER);
 
-        SupplierReturn r = returns.findById(returnId)
-            .orElseThrow(() ->
-                new BusinessException("Возврат не найден"));
+        SupplierReturn r =
+                returns.findById(returnId)
+                        .orElseThrow(() -> new BusinessException("Возврат не найден"));
 
         PurchaseOrder order = locked(r.getOrder().getId());
 
-        Rules.require(
-            r.getState() == ReturnState.PENDING,
-            "Возврат не ожидает решения"
-        );
+        Rules.require(r.getState() == ReturnState.PENDING, "Возврат не ожидает решения");
 
         ActorAccess.independent(r.getCreatedBy(), manager);
 
         if (approve) {
 
             Rules.require(
-                order.getState() != OrderState.COMPLETED,
-                "Закрытый заказ нужно сначала возобновить"
-            );
+                    order.getState() != OrderState.COMPLETED,
+                    "Закрытый заказ нужно сначала возобновить");
 
-            FulfillmentLedger.Snapshot facts =
-                ledger.snapshot(order.getId());
+            FulfillmentLedger.Snapshot facts = ledger.snapshot(order.getId());
 
             Map<UUID, BigDecimal> requested = new HashMap<>();
 
-            for (SupplierReturnLine l :
-                lines.findBySupplierReturn_Id(returnId)) {
+            for (SupplierReturnLine l : lines.findBySupplierReturn_Id(returnId)) {
 
-                requested.merge(
-                    l.getAcceptanceLine().getId(),
-                    l.getQuantity(),
-                    BigDecimal::add
-                );
+                requested.merge(l.getAcceptanceLine().getId(), l.getQuantity(), BigDecimal::add);
             }
 
             for (var entry : requested.entrySet()) {
 
                 Rules.require(
-                    facts.inspected().stream()
-                        .anyMatch(x ->
-                            x.id().equals(entry.getKey())),
-                    "Приёмка неактуальна или исправлена"
-                );
+                        facts.inspected().stream().anyMatch(x -> x.id().equals(entry.getKey())),
+                        "Приёмка неактуальна или исправлена");
 
                 Rules.require(
-                    facts.returned(entry.getKey())
-                        .add(entry.getValue())
-                        .compareTo(facts.accepted(entry.getKey())) <= 0,
-                    "Возврат превышает доступное ранее принятое количество"
-                );
+                        facts.returned(entry.getKey())
+                                        .add(entry.getValue())
+                                        .compareTo(facts.accepted(entry.getKey()))
+                                <= 0,
+                        "Возврат превышает доступное ранее принятое количество");
             }
         }
 
-        r.setState(
-            approve
-                ? ReturnState.CONFIRMED
-                : ReturnState.REJECTED
-        );
+        r.setState(approve ? ReturnState.CONFIRMED : ReturnState.REJECTED);
 
         if (approve) {
 
@@ -281,20 +212,18 @@ public class ReturnService {
         }
 
         audit.record(
-            manager,
-            approve ? "RETURN_APPROVED" : "RETURN_REJECTED",
-            r,
-            "SupplierReturn",
-            r.getId(),
-            null
-        );
+                manager,
+                approve ? "RETURN_APPROVED" : "RETURN_REJECTED",
+                r,
+                "SupplierReturn",
+                r.getId(),
+                null);
 
         return r;
     }
 
     private PurchaseOrder locked(UUID id) {
         return orders.findByIdForUpdate(id)
-            .orElseThrow(() ->
-                new BusinessException("Заказ не найден"));
+                .orElseThrow(() -> new BusinessException("Заказ не найден"));
     }
 }

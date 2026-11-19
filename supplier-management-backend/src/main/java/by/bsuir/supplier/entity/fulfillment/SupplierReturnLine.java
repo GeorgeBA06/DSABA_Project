@@ -1,15 +1,12 @@
 package by.bsuir.supplier.entity.fulfillment;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.claim.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for supplier_return_lines. No business decisions belong here. */
 @Entity
@@ -40,22 +37,51 @@ public class SupplierReturnLine {
 
     public SupplierReturnLine() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public SupplierReturn getSupplierReturn() { return supplierReturn; }
-    public void setSupplierReturn(SupplierReturn value) { this.supplierReturn = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public AcceptanceLine getAcceptanceLine() { return acceptanceLine; }
-    public void setAcceptanceLine(AcceptanceLine value) { this.acceptanceLine = value; }
+    public SupplierReturn getSupplierReturn() {
+        return supplierReturn;
+    }
 
-    public BigDecimal getQuantity() { return quantity; }
-    public void setQuantity(BigDecimal value) { this.quantity = value; }
+    public void setSupplierReturn(SupplierReturn value) {
+        this.supplierReturn = value;
+    }
 
-    public String getDefectDescription() { return defectDescription; }
-    public void setDefectDescription(String value) { this.defectDescription = value; }
+    public AcceptanceLine getAcceptanceLine() {
+        return acceptanceLine;
+    }
 
-    public Claim getClaim() { return claim; }
-    public void setClaim(Claim value) { this.claim = value; }
+    public void setAcceptanceLine(AcceptanceLine value) {
+        this.acceptanceLine = value;
+    }
 
+    public BigDecimal getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(BigDecimal value) {
+        this.quantity = value;
+    }
+
+    public String getDefectDescription() {
+        return defectDescription;
+    }
+
+    public void setDefectDescription(String value) {
+        this.defectDescription = value;
+    }
+
+    public Claim getClaim() {
+        return claim;
+    }
+
+    public void setClaim(Claim value) {
+        this.claim = value;
+    }
 }

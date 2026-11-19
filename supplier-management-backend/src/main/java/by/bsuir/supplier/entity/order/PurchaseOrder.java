@@ -1,17 +1,14 @@
 package by.bsuir.supplier.entity.order;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
 import by.bsuir.supplier.entity.contract.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.supplier.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for purchase_orders. No business decisions belong here. */
 @Entity
@@ -57,35 +54,85 @@ public class PurchaseOrder {
 
     public PurchaseOrder() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public String getNumber() { return number; }
-    public void setNumber(String value) { this.number = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public String getNumber() {
+        return number;
+    }
 
-    public Contract getContract() { return contract; }
-    public void setContract(Contract value) { this.contract = value; }
+    public void setNumber(String value) {
+        this.number = value;
+    }
 
-    public OrderState getState() { return state; }
-    public void setState(OrderState value) { this.state = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public OrderVersion getCurrentApprovedVersion() { return currentApprovedVersion; }
-    public void setCurrentApprovedVersion(OrderVersion value) { this.currentApprovedVersion = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public Contract getContract() {
+        return contract;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setContract(Contract value) {
+        this.contract = value;
+    }
 
-    public Instant getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Instant value) { this.updatedAt = value; }
+    public OrderState getState() {
+        return state;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public void setState(OrderState value) {
+        this.state = value;
+    }
+
+    public OrderVersion getCurrentApprovedVersion() {
+        return currentApprovedVersion;
+    }
+
+    public void setCurrentApprovedVersion(OrderVersion value) {
+        this.currentApprovedVersion = value;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant value) {
+        this.updatedAt = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
@@ -94,6 +141,7 @@ public class PurchaseOrder {
     }
 
     @PreUpdate
-    private void preUpdate() { updatedAt = Instant.now(); }
-
+    private void preUpdate() {
+        updatedAt = Instant.now();
+    }
 }

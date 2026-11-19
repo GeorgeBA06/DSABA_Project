@@ -1,15 +1,12 @@
 package by.bsuir.supplier.entity.order;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for order_closures. No business decisions belong here. */
 @Entity
@@ -48,28 +45,67 @@ public class OrderClosure {
 
     public OrderClosure() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public PurchaseOrder getOrder() { return order; }
-    public void setOrder(PurchaseOrder value) { this.order = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public ClosureAction getAction() { return action; }
-    public void setAction(ClosureAction value) { this.action = value; }
+    public PurchaseOrder getOrder() {
+        return order;
+    }
 
-    public ClosureResult getResult() { return result; }
-    public void setResult(ClosureResult value) { this.result = value; }
+    public void setOrder(PurchaseOrder value) {
+        this.order = value;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String value) { this.reason = value; }
+    public ClosureAction getAction() {
+        return action;
+    }
 
-    public User getRequestedBy() { return requestedBy; }
-    public void setRequestedBy(User value) { this.requestedBy = value; }
+    public void setAction(ClosureAction value) {
+        this.action = value;
+    }
 
-    public User getDecidedBy() { return decidedBy; }
-    public void setDecidedBy(User value) { this.decidedBy = value; }
+    public ClosureResult getResult() {
+        return result;
+    }
 
-    public Instant getOccurredAt() { return occurredAt; }
-    public void setOccurredAt(Instant value) { this.occurredAt = value; }
+    public void setResult(ClosureResult value) {
+        this.result = value;
+    }
 
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String value) {
+        this.reason = value;
+    }
+
+    public User getRequestedBy() {
+        return requestedBy;
+    }
+
+    public void setRequestedBy(User value) {
+        this.requestedBy = value;
+    }
+
+    public User getDecidedBy() {
+        return decidedBy;
+    }
+
+    public void setDecidedBy(User value) {
+        this.decidedBy = value;
+    }
+
+    public Instant getOccurredAt() {
+        return occurredAt;
+    }
+
+    public void setOccurredAt(Instant value) {
+        this.occurredAt = value;
+    }
 }

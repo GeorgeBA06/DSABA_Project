@@ -1,18 +1,16 @@
 package by.bsuir.supplier.entity.claim;
 
-import jakarta.persistence.*;
-import java.util.UUID;
-import java.util.Map;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.Instant;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.auth.*;
+import by.bsuir.supplier.entity.enums.*;
 import by.bsuir.supplier.entity.fulfillment.*;
 import by.bsuir.supplier.entity.order.*;
 import by.bsuir.supplier.entity.supplier.*;
+
+import jakarta.persistence.*;
+
+import java.time.Instant;
+import java.time.LocalDate;
+import java.util.UUID;
 
 /** Persisted aggregate/data record for claims. No business decisions belong here. */
 @Entity
@@ -93,69 +91,168 @@ public class Claim {
 
     public Claim() {}
 
-    public UUID getId() { return id; }
-    public void setId(UUID value) { this.id = value; }
+    public UUID getId() {
+        return id;
+    }
 
-    public Supplier getSupplier() { return supplier; }
-    public void setSupplier(Supplier value) { this.supplier = value; }
+    public void setId(UUID value) {
+        this.id = value;
+    }
 
-    public String getNumber() { return number; }
-    public void setNumber(String value) { this.number = value; }
+    public Supplier getSupplier() {
+        return supplier;
+    }
 
-    public OrderLine getOrderLine() { return orderLine; }
-    public void setOrderLine(OrderLine value) { this.orderLine = value; }
+    public void setSupplier(Supplier value) {
+        this.supplier = value;
+    }
 
-    public DeliveryLine getDeliveryLine() { return deliveryLine; }
-    public void setDeliveryLine(DeliveryLine value) { this.deliveryLine = value; }
+    public String getNumber() {
+        return number;
+    }
 
-    public ViolationType getViolationType() { return violationType; }
-    public void setViolationType(ViolationType value) { this.violationType = value; }
+    public void setNumber(String value) {
+        this.number = value;
+    }
 
-    public ClaimState getState() { return state; }
-    public void setState(ClaimState value) { this.state = value; }
+    public OrderLine getOrderLine() {
+        return orderLine;
+    }
 
-    public String getDescription() { return description; }
-    public void setDescription(String value) { this.description = value; }
+    public void setOrderLine(OrderLine value) {
+        this.orderLine = value;
+    }
 
-    public String getRequirements() { return requirements; }
-    public void setRequirements(String value) { this.requirements = value; }
+    public DeliveryLine getDeliveryLine() {
+        return deliveryLine;
+    }
 
-    public LocalDate getResponseDueOn() { return responseDueOn; }
-    public void setResponseDueOn(LocalDate value) { this.responseDueOn = value; }
+    public void setDeliveryLine(DeliveryLine value) {
+        this.deliveryLine = value;
+    }
 
-    public Instant getSentAt() { return sentAt; }
-    public void setSentAt(Instant value) { this.sentAt = value; }
+    public ViolationType getViolationType() {
+        return violationType;
+    }
 
-    public InteractionChannel getSendChannel() { return sendChannel; }
-    public void setSendChannel(InteractionChannel value) { this.sendChannel = value; }
+    public void setViolationType(ViolationType value) {
+        this.violationType = value;
+    }
 
-    public User getCreatedBy() { return createdBy; }
-    public void setCreatedBy(User value) { this.createdBy = value; }
+    public ClaimState getState() {
+        return state;
+    }
 
-    public Instant getCreatedAt() { return createdAt; }
-    public void setCreatedAt(Instant value) { this.createdAt = value; }
+    public void setState(ClaimState value) {
+        this.state = value;
+    }
 
-    public ClaimResult getResult() { return result; }
-    public void setResult(ClaimResult value) { this.result = value; }
+    public String getDescription() {
+        return description;
+    }
 
-    public RemedyType getRemedyType() { return remedyType; }
-    public void setRemedyType(RemedyType value) { this.remedyType = value; }
+    public void setDescription(String value) {
+        this.description = value;
+    }
 
-    public String getResolutionDescription() { return resolutionDescription; }
-    public void setResolutionDescription(String value) { this.resolutionDescription = value; }
+    public String getRequirements() {
+        return requirements;
+    }
 
-    public Instant getResolvedAt() { return resolvedAt; }
-    public void setResolvedAt(Instant value) { this.resolvedAt = value; }
+    public void setRequirements(String value) {
+        this.requirements = value;
+    }
 
-    public User getApprovedBy() { return approvedBy; }
-    public void setApprovedBy(User value) { this.approvedBy = value; }
+    public LocalDate getResponseDueOn() {
+        return responseDueOn;
+    }
 
-    public Long getLockVersion() { return lockVersion; }
-    public void setLockVersion(Long value) { this.lockVersion = value; }
+    public void setResponseDueOn(LocalDate value) {
+        this.responseDueOn = value;
+    }
+
+    public Instant getSentAt() {
+        return sentAt;
+    }
+
+    public void setSentAt(Instant value) {
+        this.sentAt = value;
+    }
+
+    public InteractionChannel getSendChannel() {
+        return sendChannel;
+    }
+
+    public void setSendChannel(InteractionChannel value) {
+        this.sendChannel = value;
+    }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User value) {
+        this.createdBy = value;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant value) {
+        this.createdAt = value;
+    }
+
+    public ClaimResult getResult() {
+        return result;
+    }
+
+    public void setResult(ClaimResult value) {
+        this.result = value;
+    }
+
+    public RemedyType getRemedyType() {
+        return remedyType;
+    }
+
+    public void setRemedyType(RemedyType value) {
+        this.remedyType = value;
+    }
+
+    public String getResolutionDescription() {
+        return resolutionDescription;
+    }
+
+    public void setResolutionDescription(String value) {
+        this.resolutionDescription = value;
+    }
+
+    public Instant getResolvedAt() {
+        return resolvedAt;
+    }
+
+    public void setResolvedAt(Instant value) {
+        this.resolvedAt = value;
+    }
+
+    public User getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(User value) {
+        this.approvedBy = value;
+    }
+
+    public Long getLockVersion() {
+        return lockVersion;
+    }
+
+    public void setLockVersion(Long value) {
+        this.lockVersion = value;
+    }
 
     @PrePersist
     private void prePersist() {
         if (createdAt == null) createdAt = Instant.now();
     }
-
 }
